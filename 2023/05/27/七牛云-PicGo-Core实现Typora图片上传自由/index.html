@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>七牛云+PicGo-Core实现Typora图片上传自由 | 我的博客</title><meta name="author" content="兔子"><meta name="copyright" content="兔子"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="七牛云对象存储+PicGo-Core 一、概述 最近在做一个个人博客项目，发现博客中会插入很多图片，怎么存储成了问题，经过一番查询发现大家都是用的图床工具，之前了解过七牛云，注册认证后有10G永久免费空间，每月10G国内和10G国外流量，速度相当快，七牛云是国内专业CDN服务商，插件支持比较多，有免费ssl证书，但https流量收费，所以便想用七牛云进行图片的存储，打算以后的文章图片都使用七牛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="七牛云+PicGo-Core实现Typora图片上传自由">
+<meta property="og:url" content="https://wangzi023.github.io./2023/05/27/%E4%B8%83%E7%89%9B%E4%BA%91-PicGo-Core%E5%AE%9E%E7%8E%B0Typora%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E8%87%AA%E7%94%B1/index.html">
+<meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="七牛云对象存储+PicGo-Core 一、概述 最近在做一个个人博客项目，发现博客中会插入很多图片，怎么存储成了问题，经过一番查询发现大家都是用的图床工具，之前了解过七牛云，注册认证后有10G永久免费空间，每月10G国内和10G国外流量，速度相当快，七牛云是国内专业CDN服务商，插件支持比较多，有免费ssl证书，但https流量收费，所以便想用七牛云进行图片的存储，打算以后的文章图片都使用七牛">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.xjh.me/random_img.php?type=bg&return=302">
+<meta property="article:published_time" content="2023-05-27T09:26:46.000Z">
+<meta property="article:modified_time" content="2023-05-27T01:29:07.712Z">
+<meta property="article:author" content="兔子">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.xjh.me/random_img.php?type=bg&return=302"><link rel="shortcut icon" href="https://s1.img.ink/2023/05/20/dd92c72449133.ico"><link rel="canonical" href="https://wangzi023.github.io./2023/05/27/%E4%B8%83%E7%89%9B%E4%BA%91-PicGo-Core%E5%AE%9E%E7%8E%B0Typora%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E8%87%AA%E7%94%B1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '七牛云+PicGo-Core实现Typora图片上传自由',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-27 01:29:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s1.yesimg.com/2023/04/16/6f516c602deb6.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img.xjh.me/random_img.php?type=bg&amp;return=302')"><nav id="nav"><span id="blog-info"><a href="/" title="我的博客"><span class="site-name">我的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">七牛云+PicGo-Core实现Typora图片上传自由</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-27T09:26:46.000Z" title="发表于 2023-05-27 09:26:46">2023-05-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-27T01:29:07.712Z" title="更新于 2023-05-27 01:29:07">2023-05-27</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="七牛云+PicGo-Core实现Typora图片上传自由"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><meta name="referrer" content="no-referrer" />
+
+<h1 id="七牛云对象存储-PicGo-Core"><a href="#七牛云对象存储-PicGo-Core" class="headerlink" title="七牛云对象存储+PicGo-Core"></a>七牛云对象存储+PicGo-Core</h1><hr>
+<p>一、概述</p>
+<p>最近在做一个个人博客项目，发现博客中会插入很多图片，怎么存储成了问题，经过一番查询发现大家都是用的图床工具，之前了解过七牛云，注册认证后有10G永久免费空间，每月10G国内和10G国外流量，速度相当快，七牛云是国内专业CDN服务商，插件支持比较多，有免费ssl证书，但https流量收费，所以便想用七牛云进行图片的存储，打算以后的文章图片都使用七牛云来进行存储，不过要注意的一点是，七牛云30天后会回收测试域名，因此你必须要绑定自己的已备案的域名。我将采用Typora作为Markdown编辑器，PicGo为上传图片工具，使用七牛云做存储，Typora和PicGo需要自己下载。</p>
+<p>二、配置七牛云图床</p>
+<p><a target="_blank" rel="noopener" href="https://www.qiniu.com/">七牛云官网</a></p>
+<p>首先，需要在七牛云官网注册账号并进行实名认证，注册—–&gt;实名认证，基本上就是这个步骤，在这就不做细致介绍咯，相信难不到聪明的你。提醒一下，最好使用谷歌浏览器访问进行实名认证，我开始用的是火狐浏览器，在通过微信扫码实名认证时，怎么都刷新出二维码，换成谷歌，秒解决。</p>
+<p>2、配置存储空间</p>
+<p>2.1、新建空间</p>
+<p>依次点击【管理控制台】—–【对象存储Kodo】进入对象存储页面</p>
+<p><img src="http://img.duya233.top/duya-image06d55bb467595cdccfa3b67eb5c0a6c1.png" alt="image-20210808155345317"></p>
+<p>点击【空间管理】，可以看到如下，这里我已经建好了一个空间</p>
+<p><img src="http://img.duya233.top/duya-image83d9a8e385661c1fe1d142bbba360826.png" alt="image-20210808155528938"></p>
+<p>大家可以根据自己的需求来新建自己的存储空间，点击【新建空间】，对空间进行配置，这里要注意，以下几点：</p>
+<ul>
+<li>存储空间名称不能重复，我这里也新建一个名称为：onestar-blog-img</li>
+<li>存储区域选择一个离你近点的，我选的是华东，每个地点有个编号的，后面要用来配置PicGo，这里先说一下区域对应编号<ul>
+<li>华东：z0；华北：z1；华南：z2：北美：na0：东南亚：as0</li>
+</ul>
+</li>
+<li>访问控制选择公开，因为要作为外链进行访问</li>
+</ul>
+<p><img src="http://img.duya233.top/duya-imagec9c853d1e59d08a1e4fc5d36343d0e2e.png" alt="image-20210808160247680"></p>
+<p>配置好后点击确定，可以看到如下提示信息，系统会给我们分配一个测试域名，不过这个域名只有30天有效期，我们可以先用这个域名进行测试，后面来绑定自己的域名，所以这里点击【好的，我知道了】</p>
+<p><img src="http://img.duya233.top/duya-image2c8ba51166294faacf469cc1a3eec219.png" alt="img"></p>
+<p>可以看到空间管理里面多了一个空间，也就是咱们刚配置的空间，新建空间完成</p>
+<p><img src="http://img.duya233.top/duya-imageae3e7224af9a1d4592256b8d404ccbe2.png" alt="image-20210808160845382"></p>
+<p>2.2、获取空间信息</p>
+<p>新建空间后，这里有一些数据信息需要获取一下，为配置PicGo做准备，有如下数据：</p>
+<ul>
+<li>AccessKey：点击右上角的头像【个人中心】—-【密钥管理】</li>
+<li>SecretKey：和获取AccessKey的方法一样</li>
+<li>空间名称：创建空间时取的名称，我这里是：onestar-blog-img</li>
+<li>访问网址：点开onestar-blog-img空间，也就是【空间概览】，咱们先用七牛云提供的CDN测试域名</li>
+<li>存贮区域：我这里是华东，也就是z0</li>
+</ul>
+<p>密钥:</p>
+<p><img src="http://img.duya233.top/duya-imageae1969d4fc1a0255fae6cc21c60954f3.png" alt="image-20210808165216703"></p>
+<p><img src="http://img.duya233.top/duya-image55e432199040a972400f48266ef1547a.png" alt="image-20210808165250648"></p>
+<p>访问网址：</p>
+<p><img src="http://img.duya233.top/duya-imagea5caafe8d1bb795d090c0f89439c9d93.png" alt="image-20210808165432847"></p>
+<p>三、七牛云配置自己的域名</p>
+<p>首先， 你得有一个已经备好案的域名，并且绑定了你的服务器，然后再配置一个二级域名用来访问图片用，我的域名是：gitee.pub，配置的二级域名为：images.gitee.pub</p>
+<p>1.1、配置二级域名</p>
+<p>在绑定自己域名的时候，需要配置加速域名指向 CNAME，这里我们可以配置一个二级域名。</p>
+<p>我的域名是：gitee.pub，这里我配置的二级域名为：images.gitee.pub，配置方式如下：</p>
+<ol>
+<li><p>在七牛云官网点击需要配置域名空间的【自定义域名】<img src="http://img.duya233.top/duya-imagee81762f1e0476491eeeddaf174bf32bd.png" alt="image-20210808162928312"></p>
+</li>
+<li><p>创建一个二级域名，我命名为：images.gitee.pub，其他按照需求来，基本保持默认就可以，然后点击确创建，这样就创建配置好了二级域名。<img src="http://img.duya233.top/duya-imagee303a430459a5f302e1a257bb98a1999.png" alt="image-20210808163134227"></p>
+</li>
+</ol>
+<p>1.2、获取CNAME</p>
+<p>找到域名管理，找到刚创建的域名，鼠标悬停在CNAME选项上，可以看到CNAME值，点击复制，即可获取CNAME</p>
+<p><img src="http://img.duya233.top/duya-imageb40e806ac7cd3b3ed073f7ed82cc2b97.png" alt="image-20210808163423000"></p>
+<p>2、配置服务器解析域名</p>
+<p>配置服务器解析域名需要在实例控制台进行操作，先登录服务器控制台，我用的是阿里云，这里就以阿里云为例，其他服务器厂商操作基本一致</p>
+<p>2.1、添加解析记录</p>
+<ol>
+<li>登录实例控制台后，找到域名<img src="http://img.duya233.top/duya-imageca8abe5d9dccf59353dfa7b99420604f.png" alt="image-20210808163723233"></li>
+<li>点击解析<img src="http://img.duya233.top/duya-image67ec5f40feb30990d3b62685f020ff5c.png" alt="image-20210808164021879"></li>
+<li>点击添加记录<img src="http://img.duya233.top/duya-image3f4dd36e27c8597eb03d28ccc12f2421.png" alt="image-20210808164133222"></li>
+<li>记录如下，点击保存</li>
+</ol>
+<p>这里只要添加主机记录、记录值即可，其他保持默认就好</p>
+<ul>
+<li>主机记录：和之前在七牛云添加的二级域名保持一致，所以这里填：images</li>
+<li>记录类型：选择CNAME</li>
+<li>记录值：填写之前在七牛云复制的CNAME值</li>
+</ul>
+<p><img src="http://img.duya233.top/duya-image4e0d13cd068ff71e0cf39ff2879dc18d.png" alt="image-20210808164338958"></p>
+<ol start="5">
+<li>检测</li>
+</ol>
+<p>就这样，服务器解析域名完成，接下来就是等待审核通过，通过后可以在cmd命令窗口进行检测，【win+r】快捷键输入cmd，打开命令窗口，使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nslookup + 七牛云配置的二级域名：nslookup images.gitee.pub</span><br><span class="line"></span><br><span class="line">可以看到解析的CNAME值</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.duya233.top/duya-imagecc0e37f88243eb4f6f6650d41521641b.png" alt="image-20210808164710694"></p>
+<p>四、配置PicGo-Core</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PicGo/PicGo-Core">PicGo-Core官网</a></p>
+<p>1、安装</p>
+<ul>
+<li>Npm全局安装PicGo-Cpre</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 安装</span><br><span class="line"> npm install picgo -g # 或者 yarn <span class="variable language_">global</span> add picgo</span><br><span class="line"></span><br><span class="line"># 上传具体路径图片</span><br><span class="line">picgo upload /xxx/xxx.<span class="property">jpg</span></span><br><span class="line"></span><br><span class="line"># 上传剪贴板里的第一张图片（上传时会将格式转成png）</span><br><span class="line">picgo upload</span><br></pre></td></tr></table></figure>
+
+<p>2、配置文件</p>
+<p>默认配置文件</p>
+<ul>
+<li>picgo 的默认配置文件为<code>~/.picgo/config.json</code>。其中<code>~</code>为用户目录。不同系统的用户目录不太一样。</li>
+<li>linux 和 macOS 均为<code>~/.picgo/config.json</code>。</li>
+<li>linux 和 macOS 均为<code>~/.picgo/config.json</code>。</li>
+</ul>
+<h3 id="自动生成"><a href="#自动生成" class="headerlink" title="自动生成"></a>自动生成</h3><p>通常来说你只需要配置 <code>Uploader</code> 即可，所以你可以通过 <code>picgo set uploader</code> 来进入交互式命令行，配置成功后会自动生成配置文件，无需复制粘贴！其他更多的命令可以参考 <a target="_blank" rel="noopener" href="https://picgo.github.io/PicGo-Core-Doc/zh/guide/commands.html">CLI 命令</a> 一章。</p>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>同时，填好图床配置之后，请务必通过 <code>picgo use uploader</code> 选择当前要使用的 <code>Uploader</code>。</li>
+</ul>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ picgo <span class="built_in">set</span> uploader</span><br><span class="line">? Choose a(n) uploader (Use arrow keys)</span><br><span class="line">  smms</span><br><span class="line">❯ tcyun</span><br><span class="line">  github</span><br><span class="line">  qiniu</span><br><span class="line">  imgur</span><br><span class="line">  aliyun</span><br><span class="line">  upyun</span><br><span class="line">(Move up and down to reveal more choices)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>uploader:<ul>
+<li>smms -&gt; SM.MS</li>
+<li>tcyun -&gt; 腾讯云COS</li>
+<li>upyun -&gt; 又拍云</li>
+<li>aliyun -&gt; 阿里云OSS</li>
+<li>qiniu -&gt; 七牛云</li>
+<li>imgur -&gt; Imgur</li>
+<li>github -&gt; GitHub</li>
+</ul>
+</li>
+</ul>
+<h3 id="手动生成"><a href="#手动生成" class="headerlink" title="手动生成"></a>手动生成</h3><p>如果你要手动生成配置文件，需要自己创建对应的目录、JSON 文件以及至少有如下的配置项（因此还是推荐通过命令行自动生成配置文件）：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;picBed&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;uploader&quot;</span><span class="punctuation">:</span> <span class="string">&quot;smms&quot;</span><span class="punctuation">,</span> <span class="comment">// 代表当前的默认上传图床为 SM.MS,</span></span><br><span class="line">    <span class="attr">&quot;smms&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span> <span class="comment">// 从 https://sm.ms/home/apitoken 获取的 token</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;picgoPlugins&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="punctuation">&#125;</span> <span class="comment">// 为插件预留</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="picBed-qiniu"><a href="#picBed-qiniu" class="headerlink" title="picBed.qiniu"></a>picBed.qiniu</h3><p>七牛图床的相关配置。可以查看 PicGo 的 <a target="_blank" rel="noopener" href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#%E4%B8%83%E7%89%9B%E5%9B%BE%E5%BA%8A">wiki (opens new window)</a>进行配置。</p>
+<p>默认值如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;accessKey&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;secretKey&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;bucket&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span> <span class="comment">// 存储空间名</span></span><br><span class="line">  <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span> <span class="comment">// 自定义域名</span></span><br><span class="line">  <span class="attr">&quot;area&quot;</span><span class="punctuation">:</span> <span class="string">&quot;z0&quot;</span> | <span class="string">&quot;z1&quot;</span> | <span class="string">&quot;z2&quot;</span> | <span class="string">&quot;na0&quot;</span> | <span class="string">&quot;as0&quot;</span><span class="punctuation">,</span> <span class="comment">// 存储区域编号</span></span><br><span class="line">  <span class="attr">&quot;options&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span> <span class="comment">// 网址后缀，比如？imgslim</span></span><br><span class="line">  <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span> <span class="comment">// 自定义存储路径，比如 img/</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<span id="more"></span>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://wangzi023.github.io.">兔子</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wangzi023.github.io./2023/05/27/%E4%B8%83%E7%89%9B%E4%BA%91-PicGo-Core%E5%AE%9E%E7%8E%B0Typora%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E8%87%AA%E7%94%B1/">https://wangzi023.github.io./2023/05/27/%E4%B8%83%E7%89%9B%E4%BA%91-PicGo-Core%E5%AE%9E%E7%8E%B0Typora%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E8%87%AA%E7%94%B1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wangzi023.github.io." target="_blank">我的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://img.xjh.me/random_img.php?type=bg&amp;return=302" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/05/27/Git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E7%AC%94%E8%AE%B0/" title="Git使用笔记笔记"><img class="cover" src="https://www.dmoe.cc/random.php" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Git使用笔记笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s1.yesimg.com/2023/04/16/6f516c602deb6.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">兔子</div><div class="author-info__description">这是我的博客的描述</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wangzi023"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E7%89%9B%E4%BA%91%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8-PicGo-Core"><span class="toc-number">1.</span> <span class="toc-text">七牛云对象存储+PicGo-Core</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90"><span class="toc-number">1.0.1.</span> <span class="toc-text">自动生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E7%94%9F%E6%88%90"><span class="toc-number">1.0.2.</span> <span class="toc-text">手动生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#picBed-qiniu"><span class="toc-number">1.0.3.</span> <span class="toc-text">picBed.qiniu</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/05/27/%E4%B8%83%E7%89%9B%E4%BA%91-PicGo-Core%E5%AE%9E%E7%8E%B0Typora%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E8%87%AA%E7%94%B1/" title="七牛云+PicGo-Core实现Typora图片上传自由"><img src="https://img.xjh.me/random_img.php?type=bg&amp;return=302" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="七牛云+PicGo-Core实现Typora图片上传自由"/></a><div class="content"><a class="title" href="/2023/05/27/%E4%B8%83%E7%89%9B%E4%BA%91-PicGo-Core%E5%AE%9E%E7%8E%B0Typora%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E8%87%AA%E7%94%B1/" title="七牛云+PicGo-Core实现Typora图片上传自由">七牛云+PicGo-Core实现Typora图片上传自由</a><time datetime="2023-05-27T09:26:46.000Z" title="发表于 2023-05-27 09:26:46">2023-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/27/Git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E7%AC%94%E8%AE%B0/" title="Git使用笔记笔记"><img src="https://www.dmoe.cc/random.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Git使用笔记笔记"/></a><div class="content"><a class="title" href="/2023/05/27/Git%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0%E7%AC%94%E8%AE%B0/" title="Git使用笔记笔记">Git使用笔记笔记</a><time datetime="2023-05-27T09:21:37.000Z" title="发表于 2023-05-27 09:21:37">2023-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/27/%E7%94%9F%E6%88%90%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9B%AE%E5%BD%95%E6%A0%91%E7%BB%93%E6%9E%84%E7%BB%99markdown%E4%BD%BF%E7%94%A8/" title="生成文件夹目录树结构给markdown使用"><img src="https://api.paugram.com/wallpaper/?source=sina&amp;category=jp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="生成文件夹目录树结构给markdown使用"/></a><div class="content"><a class="title" href="/2023/05/27/%E7%94%9F%E6%88%90%E6%96%87%E4%BB%B6%E5%A4%B9%E7%9B%AE%E5%BD%95%E6%A0%91%E7%BB%93%E6%9E%84%E7%BB%99markdown%E4%BD%BF%E7%94%A8/" title="生成文件夹目录树结构给markdown使用">生成文件夹目录树结构给markdown使用</a><time datetime="2023-05-27T09:12:52.000Z" title="发表于 2023-05-27 09:12:52">2023-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/27/%E4%BD%BF%E7%94%A8Nginx%E4%BB%A3%E6%9B%BFOpenwrt%E4%B8%AD%E7%9A%84uhttpd%EF%BC%8C%E5%B9%B6%E6%94%AF%E6%8C%81php/" title="使用Nginx代替Openwrt中的uhttpd，并支持php"><img src="https://img.xjh.me/random_img.php?type=bg&amp;return=302" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Nginx代替Openwrt中的uhttpd，并支持php"/></a><div class="content"><a class="title" href="/2023/05/27/%E4%BD%BF%E7%94%A8Nginx%E4%BB%A3%E6%9B%BFOpenwrt%E4%B8%AD%E7%9A%84uhttpd%EF%BC%8C%E5%B9%B6%E6%94%AF%E6%8C%81php/" title="使用Nginx代替Openwrt中的uhttpd，并支持php">使用Nginx代替Openwrt中的uhttpd，并支持php</a><time datetime="2023-05-27T09:09:27.000Z" title="发表于 2023-05-27 09:09:27">2023-05-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/27/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8/" title="Hexo博客的部署和使用"><img src="https://s1.yesimg.com/2023/04/16/100f2f2a9a57b.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hexo博客的部署和使用"/></a><div class="content"><a class="title" href="/2023/05/27/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8/" title="Hexo博客的部署和使用">Hexo博客的部署和使用</a><time datetime="2023-05-27T01:29:07.712Z" title="发表于 2023-05-27 01:29:07">2023-05-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 兔子</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
