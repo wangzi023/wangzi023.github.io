@@ -1751,6 +1751,15 @@
 <li>那如何验证变化呢？就是借助Last-Modified/if-Modified-Since，或者ETag/If-None-Match来判断，如果确实有变化，则返回最新数据，如果没有变化，则返回304，同时更新缓存的失效时间。</li>
 </ol>
 <p>以上就是缓存的整个工作机制，其实我们没必要去记忆什么强制缓存，协商缓存等概念，重要的是我们要理解缓存的整个设计思想，每一步的策略到底是解决了什么问题。</p>
+<blockquote>
+<p>参考文章：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching">MDN-HTTP 缓存</a></li>
+<li><a href="https://juejin.cn/post/7087759660391858183">30分钟搞懂 HTTP 缓存</a></li>
+<li><a href="https://juejin.cn/post/6907592506779631623">彻底搞懂 Http 缓存策略，切记死背概念！</a></li>
+<li><a href="https://www.liuxing.io/blog/http-cache">深入理解 HTTP 缓存机制</a></li>
+</ul>
+</blockquote>
 <span id="more"></span>
 
 ]]></content>
