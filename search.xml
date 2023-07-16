@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Centos_7安装Transmission下载bt、pt文件</title>
-    <url>/posts/1001/</url>
+    <url>/2023/7973/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Transmission是一种BitTorrent客户端，特点是一个跨平台的后端和其上的简洁的用户界面。Transmission以MIT许可证和GNU通用公共许可证双许可证授权，因此是一款自由软件。本文主要介绍如何在centos7上安装Transmission以及安装中文界面。</p>
@@ -68,7 +68,7 @@
   </entry>
   <entry>
     <title>EXSI虚拟机OpenWrt存储空间扩容</title>
-    <url>/posts/1002/</url>
+    <url>/2023/37735/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <p>当我们使用esxi创建openwrt的虚拟机时,采取直接添加现有硬盘时可能会出现根目录内存不足的情况,本文将介绍一种为虚拟机添加硬盘的方法.首先在esxi后台停止openwrt的虚拟机,然后为openwrt添加一块新标准硬盘容量自己随意.</p>
@@ -99,7 +99,7 @@
   </entry>
   <entry>
     <title>Element-UI的Cascader级联选择器懒加载插件封装</title>
-    <url>/posts/1002/</url>
+    <url>/2023/17868/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <p>直接上代码，使用的接口还是上一篇文章的给出的接口。<br>实现懒加载数据。</p>
@@ -116,7 +116,7 @@
   </entry>
   <entry>
     <title>Git使用笔记笔记</title>
-    <url>/posts/1003/</url>
+    <url>/2023/22275/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 
@@ -462,7 +462,7 @@
   </entry>
   <entry>
     <title>Hexo博客的部署和使用</title>
-    <url>/posts/1003/</url>
+    <url>/2023/24265/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h1 id="Hexo-博客的部署和使用"><a href="#Hexo-博客的部署和使用" class="headerlink" title="Hexo 博客的部署和使用"></a>Hexo 博客的部署和使用</h1><hr>
@@ -553,7 +553,7 @@
   </entry>
   <entry>
     <title>KMS激活Windows系统与Office</title>
-    <url>/posts/1003/</url>
+    <url>/2023/54224/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h2 id="一、激活Windows系统"><a href="#一、激活Windows系统" class="headerlink" title="一、激活Windows系统"></a>一、激活Windows系统</h2><p>这里教大家一个免费激活Windows系统的方法，不用下载什么激活软件或者某宝购买激活码。这次用的事kms的激活方法，至于什么是kms激活这可以去百度百科看一下。下面进入正题！<br>（建议通过<a href="https://msdn.itellyou.cn/">https://msdn.itellyou.cn/</a>下载所需软件，注意office要选择OVL版本）<br>1、安装好系统之后以管理员身份打开power shell<br><img src="http://img.duya233.top/duya-image1630237985158-14154cac-c129-4680-97fd-bbe986f0d314.png" alt="image.png"><br>2、在这输入下面命令安装密钥</p>
@@ -591,7 +591,7 @@
   </entry>
   <entry>
     <title>VUE项目中的CSS样式重置</title>
-    <url>/posts/1003/</url>
+    <url>/2023/17142/</url>
     <content><![CDATA[<p>前言：</p>
 <ul>
 <li>新建vue项目后，会发现在不同的浏览器中样式不一样，且部分标签自带一些 margin 或 padding值。为了减少浏览器在默认行高、页边距和标题字体大小等方面的不一致，我们需要重置样式表。</li>
@@ -621,7 +621,7 @@
   </entry>
   <entry>
     <title>Vue中main.js里的render是干什么的</title>
-    <url>/posts/1004/</url>
+    <url>/2023/34477/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <p>以下是我在学习Vue时，对main.js中render函数的个人理解。</p>
@@ -665,8 +665,46 @@
       </tags>
   </entry>
   <entry>
+    <title>WebSockets的简单使用</title>
+    <url>/2023/15011/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<h2 id="0-前言："><a href="#0-前言：" class="headerlink" title="0. 前言："></a>0. 前言：</h2><p>自从HTML5里的WebSocket出现后，彻底改变了以往Web端即时通讯技术的基础通道这个“痛点”（在此之前，开发者们不得不弄出了诸如：短轮询、长轮询、Comet、SSE等技术，可谓苦之久矣…），如今再也不用纠结到底该用“轮询”还是“Comet”技术来保证数据的实时性了。</p>
+<h2 id="1-什么是WebSocket"><a href="#1-什么是WebSocket" class="headerlink" title="1. 什么是WebSocket"></a>1. 什么是WebSocket</h2><p>WebSocket 协议在2008年诞生，2011年成为国际标准，所有浏览器都已经支持了。其是基于TCP的一种新的网络协议，是 HTML5 开始提供的一种在单个TCP连接上进行全双工通讯的协议，它实现了浏览器与服务器全双工(full-duplex)通信——允许服务器主动发送信息给客户端。</p>
+<p><strong>WebSocket特点：</strong></p>
+<ul>
+<li>WebSocket可以在浏览器里使用</li>
+<li>支持双向通信</li>
+<li>使用简单</li>
+<li>支持扩展。ws协议定义了扩展，用户可以扩展协议，或者实现自定义的子协议。（比如支持自定义压缩算法等）</li>
+<li>较少的控制开销。连接创建后，ws客户端、服务端进行数据交换时，协议控制的数据包头部较小。</li>
+<li>协议标识符是ws（如果加密，则为wss），服务器网址就是 URL。</li>
+<li>与 HTTP 协议有着良好的兼容性。默认端口也是80和443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器。</li>
+</ul>
+<h2 id="2-使用WebSocket"><a href="#2-使用WebSocket" class="headerlink" title="2. 使用WebSocket"></a>2. 使用WebSocket</h2><h3 id="2-1-服务端"><a href="#2-1-服务端" class="headerlink" title="2.1 服务端"></a>2.1 服务端</h3><p>这里服务端用了ws这个库。相比大家熟悉的<a href="https://socket.io/zh-CN/">socket.io</a>，ws实现更轻量，更适合学习的目的。</p>
+<p><strong>安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save ws</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建WebSocket服务器的示例代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">WebSocketServer</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;ws&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wss = <span class="keyword">new</span> <span class="title class_">WebSocketServer</span>(&#123; <span class="attr">port</span>: <span class="number">8080</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写一个数组，保持连接数</span></span><br><span class="line"><span class="keyword">const</span> array = []</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有个新的连接创建了</span></span><br><span class="line">wss.<span class="title function_">on</span>(<span class="string">&#x27;connection&#x27;</span>, <span class="keyword">function</span> <span class="title function_">connection</span>(<span class="params">ws</span>) &#123;</span><br><span class="line"></span><br><span class="line">    array.<span class="title function_">push</span>(ws)</span><br><span class="line"></span><br><span class="line">    ws.<span class="title function_">on</span>(<span class="string">&#x27;error&#x27;</span>, <span class="variable language_">console</span>.<span class="property">error</span>);</span><br><span class="line"></span><br><span class="line">    ws.<span class="title function_">on</span>(<span class="string">&#x27;message&#x27;</span>, <span class="keyword">function</span> <span class="title function_">message</span>(<span class="params">data</span>) &#123;</span><br><span class="line">        array.<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span> =&gt;</span> &#123; item.<span class="title function_">send</span>(data.<span class="title function_">toString</span>()) &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    ws.<span class="title function_">send</span>(<span class="string">&#x27;连接创建了&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-浏览器"><a href="#2-2-浏览器" class="headerlink" title="2.2 浏览器"></a>2.2 浏览器</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入消息，按回车发送&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 创建socket连接</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> socket = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&#x27;ws://localhost:8080&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 监听socket打开</span></span></span><br><span class="line"><span class="language-javascript">    socket.<span class="title function_">addEventListener</span>(<span class="string">&#x27;open&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;连接成功&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 监听服务器发来的消息</span></span></span><br><span class="line"><span class="language-javascript">    socket.<span class="title function_">addEventListener</span>(<span class="string">&#x27;message&#x27;</span>, <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 把服务器发过来的消息放到页面上</span></span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">newMessage</span>(event.<span class="property">data</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 渲染一条新消息</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">newMessage</span>(<span class="params">msg</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 获取ul，消息容器</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> ul = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;ul&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 创建一条li标签</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> li = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;li&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">      li.<span class="property">textContent</span> = msg;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 把li标签插入到ul列表</span></span></span><br><span class="line"><span class="language-javascript">      ul.<span class="title function_">appendChild</span>(li);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 获取输入框</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> input = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;input&#x27;</span>)</span></span><br><span class="line"><span class="language-javascript">    input.<span class="title function_">addEventListener</span>(<span class="string">&#x27;keyup&#x27;</span>, <span class="function">(<span class="params">&#123; key &#125;</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">if</span> (key === <span class="string">&#x27;Enter&#x27;</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 给服务器发消息</span></span></span><br><span class="line"><span class="language-javascript">        socket.<span class="title function_">send</span>(input.<span class="property">value</span>);</span></span><br><span class="line"><span class="language-javascript">        input.<span class="property">value</span> = <span class="string">&#x27;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-为什么要使用WebSocket"><a href="#3-为什么要使用WebSocket" class="headerlink" title="3. 为什么要使用WebSocket"></a>3. 为什么要使用WebSocket</h2><p>WebSocket的目的就是解决网络传输中的双向通信的问题，HTTP1.1默认使用持久连接（persistent connection），在一个TCP连接上也可以传输多个Request/Response消息对，但是HTTP的基本模型还是一个Request对应一个Response。这在双向通信（客户端要向服务器传送数据，同时服务器也需要实时的向客户端传送信息，一个聊天系统就是典型的双向通信）时一般会使用这样几种解决方案：</p>
+<ol>
+<li>轮询（polling），轮询就会造成对网络和通信双方的资源的浪费，且非实时。</li>
+<li>长轮询，客户端发送一个超时时间很长的Request，服务器hold住这个连接，在有新数据到达时返回Response，相比 <code>1</code>，占用的网络带宽少了，其他类似。</li>
+<li>长连接，其实有些人对长连接的概念是模糊不清的，我这里讲的其实是HTTP的长连接。如果你使用Socket来建立TCP的长连接，那么，这个长连接跟我们这里要讨论的WebSocket是一样的，实际上TCP长连接就是WebSocket的基础，但是如果是HTTP的长连接，本质上还是Request/Response消息对，仍然会造成资源的浪费、实时性不强等问题。</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>element-ui表格组件设置单元格不换行显示</title>
-    <url>/posts/1004/</url>
+    <url>/2023/10759/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <p>在一个项目中运用到了element-ui的表格组件，但是遇到一个问题就是，当一个单元格内的数据特别多的时候，但是单元格宽度又不够放下全部的内容。于是就会发生在单元格内部换行，这就会让这个页面的布局变得不可控，经过一番搜索找到了一个算是解决问题的方法。</p>
@@ -683,7 +721,7 @@
   </entry>
   <entry>
     <title>elementui中el-tree控件懒加载和局部刷新</title>
-    <url>/posts/1004/</url>
+    <url>/2023/813/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <p>​    最近项目上一个组件需要使用到tree组件来选择省市县乡，因为数据量比较大所以打算使用懒加载的方式来解决一次性加载太多数据而造成体验不好的问题。树组件如果数据比较多的话，一次性把整棵树的数据都请求到，略有耗时。所以为了优化性能，我们就要实现树组件懒加载的效果，也就是当我们点击树节点的时候，再去向后端发请求，获取对应点击的树节点下的数据。这样的话，点击哪里，加载哪里，性能会提高不少。</p>
@@ -747,7 +785,7 @@
   </entry>
   <entry>
     <title>iptv直播源</title>
-    <url>/posts/1004/</url>
+    <url>/2023/32718/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <table>
@@ -844,7 +882,7 @@
   </entry>
   <entry>
     <title>mklink命令创建软硬目录链接与删除链接</title>
-    <url>/posts/1004/</url>
+    <url>/2023/6717/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h2 id="1-mklink链接的创建"><a href="#1-mklink链接的创建" class="headerlink" title="1. mklink链接的创建"></a>1. mklink链接的创建</h2><p>“mklink” 命令在 Windows 系统中用于创建硬链接、符号链接和目录链接。以下是 “mklink” 命令的常用参数：</p>
@@ -917,7 +955,7 @@
   </entry>
   <entry>
     <title>vue-element-admin_Excel导出使用</title>
-    <url>/posts/1004/</url>
+    <url>/2023/56025/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <hr>
@@ -989,7 +1027,7 @@
   </entry>
   <entry>
     <title>vue实现数字从1递增到指定值</title>
-    <url>/posts/1004/</url>
+    <url>/2023/53257/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <p>vue封装一个组件实现，一个从1递增到指定值，这个指定值是通过父组件传递过来的。</p>
@@ -1008,8 +1046,32 @@
       </tags>
   </entry>
   <entry>
+    <title>【杂谈】浅谈社会公信力的丧失</title>
+    <url>/2023/36412/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<h2 id="0-前言："><a href="#0-前言：" class="headerlink" title="0. 前言："></a>0. 前言：</h2><p>在开始之前我想先说说什么是社会公信力。社会公信力是指一个个体、组织或机构在社会中获得的信任和声誉程度。它反映了人们对其行为、承诺和道德准则的信任程度。社会公信力是建立在诚信、透明度和责任感基础上的，它对于个人、企业、政府和其他组织来说都非常重要。</p>
+<p>一个具有良好社会公信力的个体或者组织，通常表现出以下几个特征：</p>
+<ul>
+<li>诚信和守信：他们言行一致，信守承诺，不欺骗他人。</li>
+<li>诚信和守信：他们言行一致，信守承诺，不欺骗他人。</li>
+<li>透明度：他们公开信息，对外界保持开放和公正。</li>
+<li>责任感：他们对自己的行为负责，并愿意承担应有的责任和后果。</li>
+<li>反馈和改进能力：他们重视他人的反馈和意见，积极改进自身不足之处。</li>
+<li>社会参与：他们积极参与社会公益事业，关注社会问题并为之做出贡献。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="1-群众里面有坏人啊"><a href="#1-群众里面有坏人啊" class="headerlink" title="1. 群众里面有坏人啊"></a>1. 群众里面有坏人啊</h2><p>其实我对社会公信力的丧失有比较直观的感受是在19年疫情开始的时候。</p>
+]]></content>
+      <tags>
+        <tag>杂谈</tag>
+        <tag>公信力</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【算法】JS实现斐波那契数列</title>
-    <url>/posts/1004/</url>
+    <url>/2023/36309/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <blockquote>
@@ -1069,7 +1131,7 @@
   </entry>
   <entry>
     <title>一文搞懂pinia状态管理</title>
-    <url>/posts/1005/</url>
+    <url>/2023/62051/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h1 id="1-Pinaia"><a href="#1-Pinaia" class="headerlink" title="1. Pinaia"></a>1. Pinaia</h1><hr>
@@ -1277,7 +1339,7 @@
   </entry>
   <entry>
     <title>七牛云+PicGo-Core实现Typora图片上传自由</title>
-    <url>/posts/1005/</url>
+    <url>/2023/57140/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h1 id="七牛云对象存储-PicGo-Core"><a href="#七牛云对象存储-PicGo-Core" class="headerlink" title="七牛云对象存储+PicGo-Core"></a>七牛云对象存储+PicGo-Core</h1><hr>
@@ -1408,7 +1470,7 @@
   </entry>
   <entry>
     <title>使用Nginx代替Openwrt中的uhttpd，并支持php</title>
-    <url>/posts/1005/</url>
+    <url>/2023/20781/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h1 id="使用Nginx代替Openwrt中的uhttpd，并支持php"><a href="#使用Nginx代替Openwrt中的uhttpd，并支持php" class="headerlink" title="使用Nginx代替Openwrt中的uhttpd，并支持php"></a>使用Nginx代替Openwrt中的uhttpd，并支持php</h1><p>​            在之前介绍过Openwrt部署typecho博客：<a href="https://wangyougx.com:433/blog/index.php/archives/175/">Openert部署typecho博客</a>，用的是默认的uhttpd，挺方便小巧；但是也有不足，就是性能很差，兼容性也不好，于是就萌生了使用Nginx代替uhttpd的想法。<br>于是需求就很明确了：</p>
@@ -1455,7 +1517,7 @@
   </entry>
   <entry>
     <title>使用docker的Calibre-Web项目来搭建一个自己的电子书库</title>
-    <url>/posts/1005/</url>
+    <url>/2023/28557/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这次我们需要用到是一个叫做Calibre-Web的Docker项目，calibre是一个“一站式”的电子书解决方案，它可以全面满足你的电子书需求。Calibre是免费的，源代码开放，拥有跨平台的设计。它是一个完整的电子图书馆，包括图书馆管理，格式转换，新闻，将材料转换为电子书，以及电子书阅读器同步功能、整合进电子图书阅读器。——（摘自百度百科）。<br>Calibre-Web是一个Web应用程序，直接使用Calibre的数据库，用于浏览、阅读和下载电子书，该软件是<a href="https://github.com/mutschler/calibreserver">https://github.com/mutschler/calibreserver</a>的分支，并根据GPL v3许可证授权。（摘自janeczku/calibre-web <a href="https://github.com/janeczku/calibre-web">https://github.com/janeczku/calibre-web</a>）<br>Calibre-Web提供了很多强大的功能，如漂亮的WebUI、支持多语言、用户权限管理、搜索功能、自定义书架、格式转换、公共用户注册、一键发送到kindle、直接在浏览器中阅读、支持上传等功能。</p>
@@ -1484,7 +1546,7 @@
   </entry>
   <entry>
     <title>写的一些小玩意</title>
-    <url>/posts/1005/</url>
+    <url>/2023/49767/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <p>记录一下自己写的一些工具类的代码</p>
@@ -1523,7 +1585,7 @@
   </entry>
   <entry>
     <title>前端使用vue-qr生成二维码并下载</title>
-    <url>/posts/1005/</url>
+    <url>/2023/60902/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h4 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h4><p>vue-qr(<a href="https://www.npmjs.com/package/vue-qr">项目地址</a>)一款可以生成带logo和背景图片二维码的vue前端插件，功能强大但使用简单，你可以使用该插件生成各种漂亮的二维码图片。需要注意的就是<strong>不支持ie浏览器</strong></p>
@@ -1657,7 +1719,7 @@
   </entry>
   <entry>
     <title>彻底搞懂HTTP缓存策略</title>
-    <url>/posts/1005/</url>
+    <url>/2023/11456/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h2 id="0-前言："><a href="#0-前言：" class="headerlink" title="0. 前言："></a>0. 前言：</h2><p>在web中，http请求一般都是浏览器发起的，所以我们这里所说的http的缓存策略，其实也就是浏览器端的缓存策略，因为http本身只是一种协议，真正实现缓存还是要靠浏览器（其实就是浏览器指定存储在硬盘下。）</p>
@@ -1878,7 +1940,7 @@
   </entry>
   <entry>
     <title>微信小程序搭配wechat-http，实现封装http请求响应拦截器和Promise</title>
-    <url>/posts/1005/</url>
+    <url>/2023/37462/</url>
     <content><![CDATA[<ul>
 <li>代码部分<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// http.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 导入 http 模块</span></span><br><span class="line"><span class="keyword">import</span> http <span class="keyword">from</span> <span class="string">&#x27;wechat-http&#x27;</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置接口基础路径</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">http.<span class="property">baseURL</span> = <span class="string">&#x27;https://live-api.itheima.net&#x27;</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 挂载方法到全局</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">wx.<span class="property">http</span> = http</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置请求拦截器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">http.<span class="property">intercept</span>.<span class="property">request</span> = <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;config -----&gt; &#x27;</span>, config);</span><br><span class="line">  <span class="keyword">const</span> app = <span class="title function_">getApp</span>()</span><br><span class="line">  <span class="keyword">if</span> (app.<span class="property">token</span>) &#123;</span><br><span class="line">    config.<span class="property">header</span> = &#123;</span><br><span class="line">      <span class="title class_">Authorization</span>: <span class="string">`Bearer <span class="subst">$&#123;app.token&#125;</span>`</span>,</span><br><span class="line">      <span class="comment">// 写在后，按用户传递过来的属性为准</span></span><br><span class="line">      ...config.<span class="property">header</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> config</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置响应拦截器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">http.<span class="property">intercept</span>.<span class="property">response</span> = <span class="keyword">async</span> (res) =&gt; &#123;</span><br><span class="line">  <span class="comment">/* </span></span><br><span class="line"><span class="comment">    假如返回的是 401，那么代表 token 过期，我们需要发送 refreshToken</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="keyword">if</span> (res.<span class="property">statusCode</span> === <span class="number">401</span>) &#123;</span><br><span class="line">    <span class="comment">// 假如 /refreshToken 的请求都失败了，不要再发，请跳转登录页</span></span><br><span class="line">    <span class="keyword">if</span> (res.<span class="property">config</span>.<span class="property">url</span>.<span class="title function_">includes</span>(<span class="string">&#x27;/refreshToken&#x27;</span>)) &#123;</span><br><span class="line">      wx.<span class="title function_">navigateTo</span>(&#123; <span class="attr">url</span>: <span class="string">&#x27;/pages/login/index&#x27;</span> &#125;)</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> app = <span class="title function_">getApp</span>()</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> wx.<span class="title function_">http</span>(&#123;</span><br><span class="line">      <span class="attr">url</span>: <span class="string">&#x27;/refreshToken&#x27;</span>, <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>, <span class="attr">header</span>: &#123;</span><br><span class="line">        <span class="title class_">Authorization</span>: <span class="string">`Bearer <span class="subst">$&#123;app.refreshToken&#125;</span>`</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;无感刷新refreshToken -----&gt; &#x27;</span>, result);</span><br><span class="line">    app.<span class="title function_">setToken</span>(result.<span class="property">data</span>.<span class="property">token</span>, result.<span class="property">data</span>.<span class="property">refreshToken</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// console.log(&#x27;token处理完成了 -----&gt; &#x27;, res);</span></span><br><span class="line">    <span class="comment">// 要么跳转登录页，要么就把数据拿到</span></span><br><span class="line">    <span class="comment">// 请求接口可以在 res.config 拿到，注意里面的请求头还是失败的请求头，要修改为可以用的即可</span></span><br><span class="line">    <span class="keyword">return</span> wx.<span class="title function_">http</span>(&#123;</span><br><span class="line">      ...res.<span class="property">config</span>,</span><br><span class="line">      <span class="attr">header</span>: <span class="string">`Bearer <span class="subst">$&#123;result.data.token&#125;</span>`</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 对返回码做判断，10000才是成功，否则要 Promise.reject(res)</span></span><br><span class="line">  <span class="keyword">if</span> (res.<span class="property">data</span>.<span class="property">code</span> === <span class="number">10000</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> res.<span class="property">data</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    wx.<span class="property">utils</span>.<span class="title function_">toast</span>(<span class="string">&quot;请求失败&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(res)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模块导出</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> http</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -1892,7 +1954,7 @@
   </entry>
   <entry>
     <title>微信小程序自定义tabbar栏【中间突出样式】</title>
-    <url>/posts/1005/</url>
+    <url>/2023/61095/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <ul>
@@ -1925,7 +1987,7 @@
   </entry>
   <entry>
     <title>生成文件夹目录树结构给markdown使用</title>
-    <url>/posts/1005/</url>
+    <url>/2023/12217/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h2 id="treer是一款生成文件夹目录的node插件"><a href="#treer是一款生成文件夹目录的node插件" class="headerlink" title="treer是一款生成文件夹目录的node插件"></a>treer是一款生成文件夹目录的node插件</h2><h3 id="1、treer安装"><a href="#1、treer安装" class="headerlink" title="1、treer安装"></a>1、treer安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install treer -g	//-g 表示全局安装</span><br></pre></td></tr></table></figure>
@@ -1945,7 +2007,7 @@
   </entry>
   <entry>
     <title>用户名、密码等常用正则表达式</title>
-    <url>/posts/1005/</url>
+    <url>/2023/20828/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h3 id="1、用户名正则"><a href="#1、用户名正则" class="headerlink" title="1、用户名正则"></a>1、用户名正则</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//用户名正则，4到16位（字母，数字，下划线，减号）</span></span><br><span class="line"><span class="keyword">const</span> uPattern = <span class="regexp">/^[a-zA-Z0-9_-]&#123;4,16&#125;$/</span>;</span><br><span class="line"><span class="comment">//输出 true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(uPattern.<span class="title function_">test</span>(<span class="string">&quot;iFat3&quot;</span>));</span><br></pre></td></tr></table></figure>
@@ -2019,7 +2081,7 @@
   </entry>
   <entry>
     <title>解决Hexo使用部分图床图片不显示问题</title>
-    <url>/posts/1005/</url>
+    <url>/2023/26254/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h3 id="图片不显示"><a href="#图片不显示" class="headerlink" title="图片不显示"></a>图片不显示</h3><p>在使用过程中，会发现有的引用图片无法显示的问题。但是如果直接复制图片地址到浏览器打开的话显示正常<br><img src="https://images2018.cnblogs.com/blog/1469487/201809/1469487-20180911100900123-612645852.png"></p>
@@ -2046,7 +2108,7 @@
   </entry>
   <entry>
     <title>记一次开发微信小程序使用高德地图sdk踩坑经历</title>
-    <url>/posts/1005/</url>
+    <url>/2023/48016/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <p>最近开发一个微信小程序项目的时候有一个需求就是逆地址解析和<code>poi</code>检索，一般来说微信小程序最好还是使用腾讯地图最合适，不会出现奇怪的地理位置偏移什么的。但本着折腾一下的心理去使用高德地图的微信插件，但万万没想到这一下直接掉坑里面去了。</p>
@@ -2074,7 +2136,7 @@
   </entry>
   <entry>
     <title>赋值解构</title>
-    <url>/posts/1005/</url>
+    <url>/2023/23640/</url>
     <content><![CDATA[<p><strong>解构赋值</strong>语法是一种 Javascript 表达式。可以将数组中的值或对象的属性取出，赋值给其他变量。</p>
 <h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> [a, b] = array;</span><br><span class="line"><span class="keyword">const</span> [a, , b] = array;</span><br><span class="line"><span class="keyword">const</span> [a = aDefault, b] = array;</span><br><span class="line"><span class="keyword">const</span> [a, b, ...rest] = array;</span><br><span class="line"><span class="keyword">const</span> [a, , b, ...rest] = array;</span><br><span class="line"><span class="keyword">const</span> [a, b, ...&#123; pop, push &#125;] = array;</span><br><span class="line"><span class="keyword">const</span> [a, b, ...[c, d]] = array;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; a, b &#125; = obj;</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">a</span>: a1, <span class="attr">b</span>: b1 &#125; = obj;</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">a</span>: a1 = aDefault, b = bDefault &#125; = obj;</span><br><span class="line"><span class="keyword">const</span> &#123; a, b, ...rest &#125; = obj;</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="attr">a</span>: a1, <span class="attr">b</span>: b1, ...rest &#125; = obj;</span><br><span class="line"><span class="keyword">const</span> &#123; [key]: a &#125; = obj;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a, b, a1, b1, c, d, rest, pop, push;</span><br><span class="line">[a, b] = array;</span><br><span class="line">[a, , b] = array;</span><br><span class="line">[a = aDefault, b] = array;</span><br><span class="line">[a, b, ...rest] = array;</span><br><span class="line">[a, , b, ...rest] = array;</span><br><span class="line">[a, b, ...&#123; pop, push &#125;] = array;</span><br><span class="line">[a, b, ...[c, d]] = array;</span><br><span class="line"></span><br><span class="line">(&#123; a, b &#125; = obj); <span class="comment">// brackets are required</span></span><br><span class="line">(&#123; <span class="attr">a</span>: a1, <span class="attr">b</span>: b1 &#125; = obj);</span><br><span class="line">(&#123; <span class="attr">a</span>: a1 = aDefault, b = bDefault &#125; = obj);</span><br><span class="line">(&#123; a, b, ...rest &#125; = obj);</span><br><span class="line">(&#123; <span class="attr">a</span>: a1, <span class="attr">b</span>: b1, ...rest &#125; = obj);</span><br></pre></td></tr></table></figure>
 
@@ -2113,7 +2175,7 @@
   </entry>
   <entry>
     <title>随机动漫图片API集合</title>
-    <url>/posts/1005/</url>
+    <url>/2023/38553/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <table>
