@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>mklink命令创建软硬目录链接与删除链接 | 戴某人的博客</title><meta name="author" content="兔子"><meta name="copyright" content="兔子"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. mklink链接的创建“mklink” 命令在 Windows 系统中用于创建硬链接、符号链接和目录链接。以下是 “mklink” 命令的常用参数：  &#x2F;D：用于创建目录软链接。当使用该参数时，需要指定目标目录的路径。 &#x2F;H：用于创建硬链接（硬链接只适用于文件）。当使用该参数时，需要指定目标文件的路径。 &#x2F;J：用于创建目录链接。与 &#x2F;D 相似，但它创建的是一个目录联接，而不是目录软链接。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mklink命令创建软硬目录链接与删除链接">
+<meta property="og:url" content="https://wangzi023.github.io./2023/07/16/mklink%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA%E8%BD%AF%E7%A1%AC%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%A0%E9%99%A4%E9%93%BE%E6%8E%A5/index.html">
+<meta property="og:site_name" content="戴某人的博客">
+<meta property="og:description" content="1. mklink链接的创建“mklink” 命令在 Windows 系统中用于创建硬链接、符号链接和目录链接。以下是 “mklink” 命令的常用参数：  &#x2F;D：用于创建目录软链接。当使用该参数时，需要指定目标目录的路径。 &#x2F;H：用于创建硬链接（硬链接只适用于文件）。当使用该参数时，需要指定目标文件的路径。 &#x2F;J：用于创建目录链接。与 &#x2F;D 相似，但它创建的是一个目录联接，而不是目录软链接。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.duya233.top/duya-image20230716164141.png">
+<meta property="article:published_time" content="2023-07-16T16:29:29.000Z">
+<meta property="article:modified_time" content="2023-07-16T08:45:05.836Z">
+<meta property="article:author" content="兔子">
+<meta property="article:tag" content="mklink链接">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.duya233.top/duya-image20230716164141.png"><link rel="shortcut icon" href="https://s1.img.ink/2023/05/20/dd92c72449133.ico"><link rel="canonical" href="https://wangzi023.github.io./2023/07/16/mklink%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA%E8%BD%AF%E7%A1%AC%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%A0%E9%99%A4%E9%93%BE%E6%8E%A5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'mklink命令创建软硬目录链接与删除链接',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-16 08:45:05'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/style/index.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s1.yesimg.com/2023/04/16/6f516c602deb6.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img.duya233.top/duya-image20230716164141.png')"><nav id="nav"><span id="blog-info"><a href="/" title="戴某人的博客"><span class="site-name">戴某人的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">mklink命令创建软硬目录链接与删除链接</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-16T16:29:29.000Z" title="发表于 2023-07-16 16:29:29">2023-07-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-16T08:45:05.836Z" title="更新于 2023-07-16 08:45:05">2023-07-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="mklink命令创建软硬目录链接与删除链接"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><meta name="referrer" content="no-referrer" />
+
+<h2 id="1-mklink链接的创建"><a href="#1-mklink链接的创建" class="headerlink" title="1. mklink链接的创建"></a>1. mklink链接的创建</h2><p>“mklink” 命令在 Windows 系统中用于创建硬链接、符号链接和目录链接。以下是 “mklink” 命令的常用参数：</p>
+<ul>
+<li><code>/D</code>：用于创建目录软链接。当使用该参数时，需要指定目标目录的路径。</li>
+<li><code>/H</code>：用于创建硬链接（硬链接只适用于文件）。当使用该参数时，需要指定目标文件的路径。</li>
+<li><code>/J</code>：用于创建目录链接。与 <code>/D</code> 相似，但它创建的是一个目录联接，而不是目录软链接。</li>
+<li><code>/I</code>：用于创建符号链接（默认为符号链接）。当使用该参数时，需要指定目标文件或目录的路径。</li>
+<li><code>/Y</code>：在创建链接之前，自动确认覆盖现有目标。</li>
+</ul>
+<p>下面是一些示例：</p>
+<ul>
+<li><p>创建文件软链接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklink 软链接文件 目标文件</span><br></pre></td></tr></table></figure></li>
+<li><p>创建目录软链接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklink /D 软链接目录 目标目录</span><br></pre></td></tr></table></figure></li>
+<li><p>创建符号链接（默认）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklink 软链接 目标文件或目录</span><br></pre></td></tr></table></figure></li>
+<li><p>创建硬链接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklink /H 硬链接 目标文件</span><br></pre></td></tr></table></figure></li>
+<li><p>创建目录链接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mklink /J 目录链接 目标目录</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>请注意，在创建链接时，确保 “mklink” 命令的参数和路径正确无误，并具有足够的权限。</p>
+<h2 id="2-软链接、硬链接、目录链接区别"><a href="#2-软链接、硬链接、目录链接区别" class="headerlink" title="2. 软链接、硬链接、目录链接区别"></a>2. 软链接、硬链接、目录链接区别</h2><p>软链接、硬链接和目录链接是在文件系统中创建链接引用的不同方法，它们有以下区别：</p>
+<ol>
+<li><p>软链接（Symbolic Link）：</p>
+<ul>
+<li>软链接是一个指向目标文件或目录的特殊文件。它创建了一个新的文件（或目录）路径，该路径指向实际的目标位置。</li>
+<li>软链接可以跨越不同的文件系统，并且可以链接到文件或目录。</li>
+<li>修改软链接的权限或属性不会影响实际目标文件或目录。</li>
+<li>如果删除软链接，原始文件或目录仍然存在。</li>
+</ul>
+</li>
+<li><p>硬链接（Hard Link）：</p>
+<ul>
+<li>硬链接是在文件系统中创建多个指向同一物理文件的链接。它们共享相同的 inode（索引节点）和数据块。</li>
+<li>硬链接只能链接到文件，不能链接到目录。</li>
+<li>硬链接必须在同一文件系统中创建，不能跨越不同的文件系统。</li>
+<li>修改硬链接也会修改实际的物理文件，因为它们共享相同的数据和属性。</li>
+<li>当所有硬链接都被删除时，才会真正删除文件。</li>
+</ul>
+</li>
+<li><p>目录链接（Junction）：</p>
+<ul>
+<li>目录链接是将一个目录链接到另一个目录的链接方式。</li>
+<li>目录链接只能链接到目录，不能链接到文件。</li>
+<li>目录链接类似于软链接，但是在 Windows 系统中使用 <code>/J</code> 参数来创建。</li>
+<li>修改目录链接的权限或属性不会影响实际目标目录。</li>
+<li>如果删除目录链接，原始目录仍然存在。</li>
+</ul>
+</li>
+</ol>
+<p>总结起来，软链接是指向文件或目录的链接，硬链接是指向文件的链接，而目录链接是指向目录的链接。</p>
+<h2 id="3-mklink链接的删除"><a href="#3-mklink链接的删除" class="headerlink" title="3. mklink链接的删除"></a>3. mklink链接的删除</h2><p>要删除创建的链接，您可以使用 <code>del</code> 命令或 <code>rmdir</code> 命令来删除软链接和目录链接，而对于硬链接，您可以使用 <code>del</code> 命令。</p>
+<p>删除软链接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">del 软链接文件路径</span><br></pre></td></tr></table></figure>
+
+<p>删除目录链接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rmdir</span> /S 目录链接路径</span><br></pre></td></tr></table></figure>
+<p>其中，<code>/S</code> 参数用于删除目录链接及其子目录和文件。</p>
+<p>删除硬链接：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">del 硬链接路径</span><br></pre></td></tr></table></figure>
+
+<p>请注意，删除链接将只删除链接本身，并不会影响实际的原始文件或目录。确保您删除的是链接而不是原始文件或目录。在执行删除操作之前，请确保您具有足够的权限来删除链接。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://wangzi023.github.io.">兔子</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wangzi023.github.io./2023/07/16/mklink%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA%E8%BD%AF%E7%A1%AC%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%A0%E9%99%A4%E9%93%BE%E6%8E%A5/">https://wangzi023.github.io./2023/07/16/mklink%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA%E8%BD%AF%E7%A1%AC%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%A0%E9%99%A4%E9%93%BE%E6%8E%A5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wangzi023.github.io." target="_blank">戴某人的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mklink%E9%93%BE%E6%8E%A5/">mklink链接</a></div><div class="post_share"><div class="social-share" data-image="https://img.duya233.top/duya-image20230716164141.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/07/16/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8/" title="Hexo博客的部署和使用"><img class="cover" src="https://s1.yesimg.com/2023/04/16/100f2f2a9a57b.jpg" onerror="onerror=null;src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hexo博客的部署和使用</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s1.yesimg.com/2023/04/16/6f516c602deb6.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">兔子</div><div class="author-info__description">欢迎来到戴某人的博客！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wangzi023"><i class="fab fa-github"></i><span>关注我，带你看点好东西！</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/wangzi023" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:duya233@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到戴某人的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-mklink%E9%93%BE%E6%8E%A5%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">1. mklink链接的创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%BD%AF%E9%93%BE%E6%8E%A5%E3%80%81%E7%A1%AC%E9%93%BE%E6%8E%A5%E3%80%81%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5%E5%8C%BA%E5%88%AB"><span class="toc-text">2. 软链接、硬链接、目录链接区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-mklink%E9%93%BE%E6%8E%A5%E7%9A%84%E5%88%A0%E9%99%A4"><span class="toc-text">3. mklink链接的删除</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/07/16/mklink%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA%E8%BD%AF%E7%A1%AC%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%A0%E9%99%A4%E9%93%BE%E6%8E%A5/" title="mklink命令创建软硬目录链接与删除链接"><img src="https://img.duya233.top/duya-image20230716164141.png" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="mklink命令创建软硬目录链接与删除链接"/></a><div class="content"><a class="title" href="/2023/07/16/mklink%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA%E8%BD%AF%E7%A1%AC%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%A0%E9%99%A4%E9%93%BE%E6%8E%A5/" title="mklink命令创建软硬目录链接与删除链接">mklink命令创建软硬目录链接与删除链接</a><time datetime="2023-07-16T16:29:29.000Z" title="发表于 2023-07-16 16:29:29">2023-07-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/16/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8/" title="Hexo博客的部署和使用"><img src="https://s1.yesimg.com/2023/04/16/100f2f2a9a57b.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="Hexo博客的部署和使用"/></a><div class="content"><a class="title" href="/2023/07/16/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8/" title="Hexo博客的部署和使用">Hexo博客的部署和使用</a><time datetime="2023-07-16T08:45:05.836Z" title="发表于 2023-07-16 08:45:05">2023-07-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/13/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91JS%E5%AE%9E%E7%8E%B0%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" title="【算法】JS实现斐波那契数列"><img src="https://img.duya233.top/duya-image3464575.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="【算法】JS实现斐波那契数列"/></a><div class="content"><a class="title" href="/2023/07/13/%E3%80%90%E7%AE%97%E6%B3%95%E3%80%91JS%E5%AE%9E%E7%8E%B0%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" title="【算法】JS实现斐波那契数列">【算法】JS实现斐波那契数列</a><time datetime="2023-07-13T14:14:37.000Z" title="发表于 2023-07-13 14:14:37">2023-07-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/10/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82HTTP%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5/" title="彻底搞懂HTTP缓存策略"><img src="https://img.duya233.top/duya-image3432645645.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="彻底搞懂HTTP缓存策略"/></a><div class="content"><a class="title" href="/2023/07/10/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82HTTP%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5/" title="彻底搞懂HTTP缓存策略">彻底搞懂HTTP缓存策略</a><time datetime="2023-07-10T17:42:22.000Z" title="发表于 2023-07-10 17:42:22">2023-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/07/01/%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82pinia%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/" title="一文搞懂pinia状态管理"><img src="https://img.duya233.top/duya-image554b61189001291.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="一文搞懂pinia状态管理"/></a><div class="content"><a class="title" href="/2023/07/01/%E4%B8%80%E6%96%87%E6%90%9E%E6%87%82pinia%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86/" title="一文搞懂pinia状态管理">一文搞懂pinia状态管理</a><time datetime="2023-07-01T08:39:32.000Z" title="发表于 2023-07-01 08:39:32">2023-07-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;1987 - 2023 By 兔子</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="https://icp.gov.moe/?keyword=20230796" target="_blank">萌ICP备20230796号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

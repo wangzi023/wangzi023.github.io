@@ -462,7 +462,7 @@
   </entry>
   <entry>
     <title>Hexo博客的部署和使用</title>
-    <url>/2023/07/13/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
+    <url>/2023/07/16/Hexo%E5%8D%9A%E5%AE%A2%E7%9A%84%E9%83%A8%E7%BD%B2%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h1 id="Hexo-博客的部署和使用"><a href="#Hexo-博客的部署和使用" class="headerlink" title="Hexo 博客的部署和使用"></a>Hexo 博客的部署和使用</h1><hr>
@@ -746,27 +746,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2023/07/13/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="创建一个新帖子"><a href="#创建一个新帖子" class="headerlink" title="创建一个新帖子"></a>创建一个新帖子</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="运行服务器"><a href="#运行服务器" class="headerlink" title="运行服务器"></a>运行服务器</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="部署到远程站点"><a href="#部署到远程站点" class="headerlink" title="部署到远程站点"></a>部署到远程站点</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="清除已生成的静态文件"><a href="#清除已生成的静态文件" class="headerlink" title="清除已生成的静态文件"></a>清除已生成的静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo clean</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/zh-cn/docs/commands#clean">Clean</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>iptv直播源</title>
     <url>/2023/05/22/iptv%E7%9B%B4%E6%92%AD%E6%BA%90/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -861,6 +840,79 @@
       <tags>
         <tag>iptv</tag>
         <tag>直播源</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>mklink命令创建软硬目录链接与删除链接</title>
+    <url>/2023/07/16/mklink%E5%91%BD%E4%BB%A4%E5%88%9B%E5%BB%BA%E8%BD%AF%E7%A1%AC%E7%9B%AE%E5%BD%95%E9%93%BE%E6%8E%A5%E4%B8%8E%E5%88%A0%E9%99%A4%E9%93%BE%E6%8E%A5/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<h2 id="1-mklink链接的创建"><a href="#1-mklink链接的创建" class="headerlink" title="1. mklink链接的创建"></a>1. mklink链接的创建</h2><p>“mklink” 命令在 Windows 系统中用于创建硬链接、符号链接和目录链接。以下是 “mklink” 命令的常用参数：</p>
+<ul>
+<li><code>/D</code>：用于创建目录软链接。当使用该参数时，需要指定目标目录的路径。</li>
+<li><code>/H</code>：用于创建硬链接（硬链接只适用于文件）。当使用该参数时，需要指定目标文件的路径。</li>
+<li><code>/J</code>：用于创建目录链接。与 <code>/D</code> 相似，但它创建的是一个目录联接，而不是目录软链接。</li>
+<li><code>/I</code>：用于创建符号链接（默认为符号链接）。当使用该参数时，需要指定目标文件或目录的路径。</li>
+<li><code>/Y</code>：在创建链接之前，自动确认覆盖现有目标。</li>
+</ul>
+<p>下面是一些示例：</p>
+<ul>
+<li><p>创建文件软链接：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mklink 软链接文件 目标文件</span><br></pre></td></tr></table></figure></li>
+<li><p>创建目录软链接：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mklink /D 软链接目录 目标目录</span><br></pre></td></tr></table></figure></li>
+<li><p>创建符号链接（默认）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mklink 软链接 目标文件或目录</span><br></pre></td></tr></table></figure></li>
+<li><p>创建硬链接：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mklink /H 硬链接 目标文件</span><br></pre></td></tr></table></figure></li>
+<li><p>创建目录链接：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mklink /J 目录链接 目标目录</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>请注意，在创建链接时，确保 “mklink” 命令的参数和路径正确无误，并具有足够的权限。</p>
+<h2 id="2-软链接、硬链接、目录链接区别"><a href="#2-软链接、硬链接、目录链接区别" class="headerlink" title="2. 软链接、硬链接、目录链接区别"></a>2. 软链接、硬链接、目录链接区别</h2><p>软链接、硬链接和目录链接是在文件系统中创建链接引用的不同方法，它们有以下区别：</p>
+<ol>
+<li><p>软链接（Symbolic Link）：</p>
+<ul>
+<li>软链接是一个指向目标文件或目录的特殊文件。它创建了一个新的文件（或目录）路径，该路径指向实际的目标位置。</li>
+<li>软链接可以跨越不同的文件系统，并且可以链接到文件或目录。</li>
+<li>修改软链接的权限或属性不会影响实际目标文件或目录。</li>
+<li>如果删除软链接，原始文件或目录仍然存在。</li>
+</ul>
+</li>
+<li><p>硬链接（Hard Link）：</p>
+<ul>
+<li>硬链接是在文件系统中创建多个指向同一物理文件的链接。它们共享相同的 inode（索引节点）和数据块。</li>
+<li>硬链接只能链接到文件，不能链接到目录。</li>
+<li>硬链接必须在同一文件系统中创建，不能跨越不同的文件系统。</li>
+<li>修改硬链接也会修改实际的物理文件，因为它们共享相同的数据和属性。</li>
+<li>当所有硬链接都被删除时，才会真正删除文件。</li>
+</ul>
+</li>
+<li><p>目录链接（Junction）：</p>
+<ul>
+<li>目录链接是将一个目录链接到另一个目录的链接方式。</li>
+<li>目录链接只能链接到目录，不能链接到文件。</li>
+<li>目录链接类似于软链接，但是在 Windows 系统中使用 <code>/J</code> 参数来创建。</li>
+<li>修改目录链接的权限或属性不会影响实际目标目录。</li>
+<li>如果删除目录链接，原始目录仍然存在。</li>
+</ul>
+</li>
+</ol>
+<p>总结起来，软链接是指向文件或目录的链接，硬链接是指向文件的链接，而目录链接是指向目录的链接。</p>
+<h2 id="3-mklink链接的删除"><a href="#3-mklink链接的删除" class="headerlink" title="3. mklink链接的删除"></a>3. mklink链接的删除</h2><p>要删除创建的链接，您可以使用 <code>del</code> 命令或 <code>rmdir</code> 命令来删除软链接和目录链接，而对于硬链接，您可以使用 <code>del</code> 命令。</p>
+<p>删除软链接：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">del 软链接文件路径</span><br></pre></td></tr></table></figure>
+
+<p>删除目录链接：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">rmdir</span> /S 目录链接路径</span><br></pre></td></tr></table></figure>
+<p>其中，<code>/S</code> 参数用于删除目录链接及其子目录和文件。</p>
+<p>删除硬链接：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">del 硬链接路径</span><br></pre></td></tr></table></figure>
+
+<p>请注意，删除链接将只删除链接本身，并不会影响实际的原始文件或目录。确保您删除的是链接而不是原始文件或目录。在执行删除操作之前，请确保您具有足够的权限来删除链接。</p>
+]]></content>
+      <tags>
+        <tag>mklink链接</tag>
       </tags>
   </entry>
   <entry>
