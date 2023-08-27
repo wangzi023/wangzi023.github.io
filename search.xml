@@ -1363,6 +1363,52 @@
       </tags>
   </entry>
   <entry>
+    <title>【踩坑记事】关于我被switch语句折腾的3小时</title>
+    <url>/2023/13191/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>记一次这周在项目上遇到的一个问题，为解决这个问题我和朋友研究了大概两三个小时。我们都是第一次遇到这种问题，请大佬勿喷，下面我来讲一下这个问题的成因和解决的办法。</p>
+<p>直接说结果[问题结论](#4. 问题解决)</p>
+<h2 id="1-问题来源"><a href="#1-问题来源" class="headerlink" title="1. 问题来源"></a>1. 问题来源</h2><p>在目前这个项目中有一个函数需要根据后端返回返回的数据，分别进行不同操作。因为要执行不同的操作的判断有点多，所以决定使用<code>switch</code>语句来进行判断。</p>
+<p>一般来说<code>switch</code>语句是长这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span> (expr) &#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&quot;Oranges&quot;</span>:</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Oranges are $0.59 a pound.&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&quot;Apples&quot;</span>:</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Apples are $0.32 a pound.&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&quot;Bananas&quot;</span>:</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Bananas are $0.48 a pound.&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&quot;Cherries&quot;</span>:</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Cherries are $3.00 a pound.&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&quot;Mangoes&quot;</span>:</span><br><span class="line">  <span class="keyword">case</span> <span class="string">&quot;Papayas&quot;</span>:</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Mangoes and papayas are $2.79 a pound.&quot;</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="attr">default</span>:</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Sorry, we are out of &quot;</span> + expr + <span class="string">&quot;.&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Is there anything else you&#x27;d like?&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>我写的代码也是这样的格式，但是很奇怪的是在浏览器中运行会报一个非常奇怪的错误。</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20230827172712360.png" alt="image-20230827172712360"></p>
+<p>提示我“未捕获(在promise中)ReferenceError:在初始化之前无法访问<code>orderID</code>”，就很奇怪哎，我这个<code>orderID</code>已经是在全局声明了，并且如果实在<code>switch</code>外面打印这个<code>orderID</code>是可以正常访问的。然后我开始怀疑是不是<code>switch</code>语句写错了？但是经过排查发现好像没有啥问题呀！然后我们就开始排错。</p>
+<h2 id="2-问题排查"><a href="#2-问题排查" class="headerlink" title="2. 问题排查"></a>2. 问题排查</h2><p>首先我们开始尝试在<code>switch case</code>内部去let一个<code>orderID</code>，发现还是会报上述错误。于是我们想到是不是是<code>orderID</code>这个变量名的问题呢？然后我们就随便声明一个变量，用这个随便声明的变量去接函数的返回值，发现这个随便声明的变量是可以正常访问的。这就我们感觉非常奇怪的，为什么会出现这种情况呢？接着我们就在想会不会是<code>switch</code>语句内部哪里出现了问题，然后我们开始挨个注释<code>case</code>判断是哪一个<code>case</code>出现了问题。然后最后发现<code>case 1:</code>被注释掉了这个判断就正常了，那么这个<code>case 1:</code>和其他的有什么不同呢？</p>
+<img src="https://img.duya233.top/duya-imageimage-20230827174333134.png" alt="image-20230827174333134" style="zoom: 50%;" />
+
+<p>看到这，我也是没有搞明白为什么会这样？直觉来讲，其他的<code>case</code>也不会跑到<code>case</code>里面来找变量吧，然后就网上找文档到底是怎么一回事。</p>
+<h2 id="3-问题结论"><a href="#3-问题结论" class="headerlink" title="3. 问题结论"></a>3. 问题结论</h2><p>最后在网站找到一篇文章说<strong>case语句的变量声明是在整个switch语句中可见的</strong>。</p>
+<p>emmmm</p>
+<p>这就很反直觉了。</p>
+<p>这里引用部分原文</p>
+<blockquote>
+<p>1、case语句的变量声明是在整个switch语句中可见的。</p>
+<p>2、case语句中可以变量声明和定义，但在case语句中变量初始化的话有时会产生编译错误，原因是编译器为了避免“不一致”现象。具体解释如下：</p>
+<ul>
+<li>因为case语句中的变量声明、定义、初始化实在整个switch语句中可见的，变量声明实在编译时完成，而变量初始化需要在执行是完成，所以，如果在一个非最后一个case的case（命名case1）中进行了变量声明加初始化（如int a=0;）,若真正执行的时候switch的条件值是该case后面的某个case（命名case2）的值，则case2中可以看到a的声明，也可以使用啊，但是因为没有执行case1，所以a没有初始化，所以在case2中使用的a并不是“预想的”a，这就产生了不一致。但如果在case1中只有声明或定义，而没有初始化，则不会产生这种不一致，编译时就不会报错。</li>
+</ul>
+<p>这个可以通过编译，因为此时在case ‘b ‘中a不可见（因为a在语句快中），所以不会出现上述的“不一致”现象，因此编译顺利通过。</p>
+<p>此时也会顺利通过编译，因为a的定义（初始化）放在了最后一个分支中，由于在case ‘b ‘后面没有其他分支了，所以同样不会出现上述的“不一致”现象，所以仍然顺利通过编译。</p>
+</blockquote>
+<h2 id="4-问题解决"><a href="#4-问题解决" class="headerlink" title="4. 问题解决"></a>4. 问题解决</h2><p>这里提供一个解决问题的方法</p>
+<ul>
+<li>不在<code>case</code>里面使用赋值解构</li>
+<li>或者是使用<code>&#123;&#125;</code>包住要判断的内</li>
+</ul>
+<p><strong>例如：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">switch</span>(val) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:&#123;</span><br><span class="line">        赋值解构、变量声明...</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        ...执行的操作</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">         <span class="attr">default</span>:</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+]]></content>
+      <tags>
+        <tag>踩坑记事</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一文搞懂pinia状态管理</title>
     <url>/2023/62051/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
