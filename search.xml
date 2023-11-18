@@ -1330,6 +1330,192 @@
       </tags>
   </entry>
   <entry>
+    <title>【教程】从零开始编译合适自己的OpneWrt固件</title>
+    <url>/2023/43624/</url>
+    <content><![CDATA[<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>个人使用 OpenWrt 多年，固件大多用的都是恩山论坛几位大佬编译好的现成固件，什么高大全，骷髅头，suninggegeg。其实用大佬编译好的固件挺好的，但是因为每个人的需求不一样。导致使用高大全固件又是总觉得太臃肿，使用一些精简版的固件又没有自己需要的插件。最后还是萌生了自己根据自己的需求去编译 OpenWrt。经过一番折腾下来也是把固件给编译出来了，这个编译过程大概需要 1-3 小时左右。</p>
+<h2 id="1-环境要求"><a href="#1-环境要求" class="headerlink" title="1. 环境要求"></a>1. 环境要求</h2><h3 id="1-1-系统版本"><a href="#1-1-系统版本" class="headerlink" title="1.1 系统版本"></a>1.1 系统版本</h3><ul>
+<li>推荐是 Debian11 或者是 Ubuntu LTS 18.x 或者 20.x 、22.x</li>
+</ul>
+<h3 id="1-2-网络和配置要求"><a href="#1-2-网络和配置要求" class="headerlink" title="1.2 网络和配置要求"></a>1.2 网络和配置要求</h3><ul>
+<li>编译的主机最好是境外美区的 VPS，如果要本地编译需要给编译主机配置全局国际网络环境。</li>
+<li>编译主机至少需要预留 50G 以上的硬盘空间。在编译的过程中会下载大量的依赖文件，如果硬盘空间不足或网络不稳定都可能会编译失败。</li>
+<li>编译主机配置推荐 2H4G 以上，这会减少编译等待时间。</li>
+<li>这边推荐使用腾讯或阿里按量付费港区或美区的云主机，编译完成就可以销掉云主机，可以选到较高的配置同时支出的费用也不会太多。</li>
+</ul>
+<h3 id="1-3-编译依赖安装"><a href="#1-3-编译依赖安装" class="headerlink" title="1.3 编译依赖安装"></a>1.3 编译依赖安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 升级</span></span><br><span class="line">apt update -y</span><br><span class="line">apt full-upgrade -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \</span><br><span class="line">bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \</span><br><span class="line">git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev \</span><br><span class="line">libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz \</span><br><span class="line">mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \</span><br><span class="line">libpython3-dev qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip \</span><br><span class="line">vim wget xmlto xxd zlib1g-dev python3-setuptools</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理（可选）</span></span><br><span class="line">sudo apt autoremove --purge</span><br><span class="line">sudo apt clean</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-开始编译"><a href="#2-开始编译" class="headerlink" title="2. 开始编译"></a>2. 开始编译</h2><h3 id="2-1-创建普通用户"><a href="#2-1-创建普通用户" class="headerlink" title="2.1 创建普通用户"></a>2.1 创建普通用户</h3><ul>
+<li><p>编译的过程一定要使用 “普通用户！” “普通用户！” “普通用户！”</p>
+</li>
+<li><p>我这边以 Ubuntu 系统为示例，其他系统可自行百度</p>
+</li>
+<li><p>打开终端输入下面命令，创建一个名为<code>opwrt</code>的普通用户</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">adduser opwrt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后会提示输入新用户密码和再次确认密码；请设置一个符合系统规范的密码，不然系统会提示密码太简单。这里可以自行百度解决</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换普通用户</span></span><br><span class="line">su opwrt</span><br><span class="line"><span class="comment"># 进入用户主目录</span></span><br><span class="line"><span class="built_in">cd</span> ~</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-拉取源码，这里使用的是-Lean-大佬的-LEDE-分支"><a href="#2-2-拉取源码，这里使用的是-Lean-大佬的-LEDE-分支" class="headerlink" title="2.2 拉取源码，这里使用的是 Lean 大佬的 LEDE 分支"></a>2.2 拉取源码，这里使用的是 Lean 大佬的 LEDE 分支</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/coolsnowwolf/lede</span><br><span class="line"><span class="built_in">cd</span> lede</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-添加软件源"><a href="#2-3-添加软件源" class="headerlink" title="2.3 添加软件源"></a>2.3 添加软件源</h3><ul>
+<li>L 大源码里默认有四个软件源里面包含了大部分常用插件，如果要添加其他没有的插件则需要自行添加软件源至<code>feeds.conf.default</code>文件，当然也可以单独添加某个插件。</li>
+<li>如果选择插件的时候没有某 s*p 请检查一下这个配置文件的<code>Hello Word</code>字样代码是不是被注释了。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim feeds.conf.default</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加软件源（打开下方仓库链接可以查看包含的插件列表，一般选前两个源就行）</span></span><br><span class="line">src-git kenzo https://github.com/kenzok8/openwrt-packages</span><br><span class="line">src-git small https://github.com/kenzok8/small</span><br><span class="line"></span><br><span class="line">src-git haibo https://github.com/haiibo/openwrt-packages</span><br><span class="line">src-git liuran001 https://github.com/liuran001/openwrt-packages</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单独添加（在更新并安装插件之前执行）</span></span><br><span class="line"><span class="comment">## 插件</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/esirplayground/luci-app-poweroff.git package/luci-app-poweroff</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新并安装插件</span></span><br><span class="line">./scripts/feeds clean</span><br><span class="line">./scripts/feeds update -a</span><br><span class="line">./scripts/feeds install -a</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-自定义配置"><a href="#2-4-自定义配置" class="headerlink" title="2.4 自定义配置"></a>2.4 自定义配置</h3><ul>
+<li>这边建议和我一起执行下面的命令，可以避免出现奇奇怪怪的错误。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 修改默认IP为 10.1.1.252</span></span><br><span class="line">sed -i <span class="string">&#x27;s/192.168.1.1/10.1.1.252/g&#x27;</span> package/base-files/files/bin/config_generate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改默认主机名</span></span><br><span class="line">sed -i <span class="string">&#x27;/uci commit system/i\uci set system.@system[0].hostname=&#x27;</span>Soft_Router<span class="string">&#x27;&#x27;</span> package/lean/default-settings/files/zzz-default-settings</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入编译者信息</span></span><br><span class="line">sed -i <span class="string">&quot;s/OpenWrt /Kinoko build <span class="subst">$(TZ=UTC-8 date <span class="string">&quot;+%Y.%m.%d&quot;</span>)</span> @ OpenWrt /g&quot;</span> package/lean/default-settings/files/zzz-default-settings</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-配置设备和添加插件"><a href="#2-5-配置设备和添加插件" class="headerlink" title="2.5 配置设备和添加插件"></a>2.5 配置设备和添加插件</h3><ul>
+<li>执行<code>make menuconfig</code> 命令进入编译菜单</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>请本着不懂不要乱动的原则，选择自己需要的插件。有些插件与其他插件是有冲突的，一起选中编译是一定会报错的！</li>
+</ul>
+<p><img src="http://img.duya233.top/duya-imageduya233_a61174ffa833f.png" alt="a61174ffa833f.png"></p>
+<ul>
+<li>菜单选项简要说明：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 选择 CPU 类型</span></span><br><span class="line">Target System (x86) --&gt; <span class="comment"># 软路由选择 x86，硬路由根据型号厂家自行选择</span></span><br><span class="line">Subtarget (x86_64) --&gt; <span class="comment"># CPU 子选项</span></span><br><span class="line">Target Profile (Generic x86/64) --&gt; <span class="comment"># 厂家具体型号</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置镜像编译的格式（squashfs，ext4）</span></span><br><span class="line">Target Images --&gt; <span class="comment"># 默认 squashfs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加较多插件时，为了避免空间不足，建议修改下面两项默认大小（x86/64）</span></span><br><span class="line">Target Images --&gt; (16) Kernel partition size (<span class="keyword">in</span> MB) <span class="comment"># 默认是16，建议修改为100</span></span><br><span class="line">Target Images --&gt; (400) Root filesystem partition size (<span class="keyword">in</span> MB) <span class="comment"># 默认是400，建议修改为1024</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启 IPv6 支持</span></span><br><span class="line">Extra packages --&gt; ipv6helper（选定这个后，下面几项会自动选择）</span><br><span class="line">Network --&gt; odhcp6c</span><br><span class="line">Network --&gt; odhcpd-ipv6only</span><br><span class="line">LuCI --&gt; Protocols --&gt; luci-proto-ipv6</span><br><span class="line">LuCI --&gt; Protocols --&gt; luci-proto-ppp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启适用于 VMware 的 VMware Tools</span></span><br><span class="line">Utilities --&gt; open-vm-tools</span><br><span class="line">Utilities --&gt; open-vm-tools-fuse</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择插件</span></span><br><span class="line">LuCI --&gt; Applications <span class="comment"># 根据需要选择，按键盘空格切换选中状态，* 代表编入固件，M 表示编译成模块或者IPK包，为空表示不编译</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择主题</span></span><br><span class="line">LuCI --&gt; Themes <span class="comment"># 选择喜欢的主题，可以选多个</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其他选项一般不需要调整，如感兴趣可以自行了解</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://www.right.com.cn/forum/thread-3682029-1-1.html">插件中文说明对照表</a></li>
+</ul>
+<h3 id="2-6-下载软件包"><a href="#2-6-下载软件包" class="headerlink" title="2.6 下载软件包"></a>2.6 下载软件包</h3><ul>
+<li>配置完成之后按键盘左右方向键移动光标到<code>Save</code>保存，然后退出菜单<code>Exit</code>,开始下载软件包</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 预下载编译所需的软件包</span></span><br><span class="line">make download -j8</span><br><span class="line"><span class="comment"># 检查文件完整性(下面为可选操作)</span></span><br><span class="line">find dl -size -1024c -<span class="built_in">exec</span> <span class="built_in">ls</span> -l &#123;&#125; \;</span><br><span class="line"><span class="comment"># 检查文件完整性命令可以列出下载不完整的文件，小于1k的文件属于下载不完整，如果存在则用下面的命令删除，然后重新下载编译所需的软件包，再次检查</span></span><br><span class="line"><span class="comment"># 确认所有文件完整可大大提高编译成功率，避免浪费时间</span></span><br><span class="line">find dl -size -1024c -<span class="built_in">exec</span> <span class="built_in">rm</span> -f &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-7-开始编译固件"><a href="#2-7-开始编译固件" class="headerlink" title="2.7 开始编译固件"></a>2.7 开始编译固件</h3><ul>
+<li>编译完成后输出路径是<code>bin/targets</code>，默认密码是<code>password</code></li>
+<li>很多教程都教大家使用单线程处理首次编译，我的建议是第一次直接最大线程编译，如果出错了再使用单线程编译。</li>
+<li>已经编译成功的插件系统是不会二次编译的，最大线程编译可以减少等待的时间。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 编译固件（-j 后面是线程数，单线程）</span></span><br><span class="line">make V=s -j1</span><br><span class="line"><span class="comment"># 自动处理编译线程，使用最大线程编译或者单线程</span></span><br><span class="line">make -j$(<span class="built_in">nproc</span>) || make -j1 || make -j1 V=s</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-8-OpenWrt编译成功说明"><a href="#2-8-OpenWrt编译成功说明" class="headerlink" title="2.8 OpenWrt编译成功说明"></a>2.8 OpenWrt编译成功说明</h3><table>
+<thead>
+<tr>
+<th>文件名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sha256sums</td>
+<td>固件完整性校验文件</td>
+</tr>
+<tr>
+<td>packages-server.zip</td>
+<td>IPK 软件包归档</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic.manifest</td>
+<td>固件内已集成软件包列表</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic-generic-rootfs.tar.gz</td>
+<td>RootFS 文件</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic-rootfs-ext4.img.gz</td>
+<td>不带引导的 RootFS 镜像</td>
+</tr>
+<tr>
+<td>openwrt-toolchain-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.bz2</td>
+<td>OpenWrt 工具链</td>
+</tr>
+<tr>
+<td>openwrt-sdk-x86-64_gcc-8.4.0_musl.Linux-x86_64.tar.xz</td>
+<td>OpenWrt SDK</td>
+</tr>
+<tr>
+<td>openwrt-imagebuilder-x86-64.Linux-x86_64.tar.xz</td>
+<td>OpenWrt Image Builder</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic-squashfs-combined.vdi</td>
+<td>VDI 虚拟磁盘映像 (Legacy 引导)</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic-squashfs-combined.vmdk</td>
+<td>VMDK 虚拟磁盘映像 (Legacy 引导)</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic-squashfs-combined-efi.vdi</td>
+<td>VDI 虚拟磁盘映像 (UEFI 引导)</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic-squashfs-combined-efi.vmdk</td>
+<td>VMDK 虚拟磁盘映像 (UEFI 引导)</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic-squashfs-combined.img.gz</td>
+<td>Squashfs 格式安装 / 升级固件 (Legacy 引导)</td>
+</tr>
+<tr>
+<td>openwrt-x86-64-generic-squashfs-combined-efi.img.gz</td>
+<td>Squashfs 格式安装 / 升级固件 (UEFI 引导)</td>
+</tr>
+</tbody></table>
+<h2 id="3-二次编译"><a href="#3-二次编译" class="headerlink" title="3. 二次编译"></a>3. 二次编译</h2><ol>
+<li>拉取最新 OpenWrt 源码和更新 feeds 源中的软件包源码</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> lede</span><br><span class="line">git pull</span><br><span class="line">./scripts/feeds update -a</span><br><span class="line">./scripts/feeds install -a</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>清除旧的编译产物和目录（可选）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make clean</span><br><span class="line"><span class="comment"># 源码有大规模更新或者内核更新后执行，以保证编译质量</span></span><br><span class="line"><span class="comment"># 此操作会删除 /bin 和 /build_dir 目录中的文件</span></span><br><span class="line"></span><br><span class="line">make dirclean</span><br><span class="line"><span class="comment"># 更换架构编译前必须执行</span></span><br><span class="line"><span class="comment"># 此操作会删除 /bin 和 /build_dir 目录的中的文件（make clean），以及 /staging_dir、/toolchain、/tmp 和 /logs 中的文件</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>同首次编译，多线程编译失败后自动进入单线程编译，失败则输出详细日志</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">make defconfig</span><br><span class="line">make download -j8</span><br><span class="line">find dl -size -1024c -<span class="built_in">exec</span> <span class="built_in">ls</span> -l &#123;&#125; \;</span><br><span class="line">make -j$(<span class="built_in">nproc</span>) || make -j1 || make -j1 V=s</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果需要重新配置</span></span><br><span class="line"><span class="built_in">rm</span> -rf ./tmp &amp;&amp; <span class="built_in">rm</span> -rf .config <span class="comment"># 清除临时文件和编译配置文件</span></span><br><span class="line">make menuconfig</span><br><span class="line">make download -j8</span><br><span class="line">find dl -size -1024c -<span class="built_in">exec</span> <span class="built_in">ls</span> -l &#123;&#125; \;</span><br><span class="line">make -j$(<span class="built_in">nproc</span>) || make -j1 || make -j1 V=s</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-OpenWrt-编译的奇技淫巧——编译指定版本Op"><a href="#4-OpenWrt-编译的奇技淫巧——编译指定版本Op" class="headerlink" title="4.OpenWrt 编译的奇技淫巧——编译指定版本Op"></a>4.OpenWrt 编译的奇技淫巧——编译指定版本Op</h2><p><code>lede</code>这个库一直都是走在 openwrt 官方前面的，如果直接拉去代码编译都是 Openwrt 的最新版。新的版本往往可能存在一些奇怪的问题，比如下载插件时候自己编译的版本高于官方版本导致安装失败、新版有些特性对于一些插件存在奇怪的兼容性问题的时候，就需要编译几乎和官方同稳定版的 OpenWrt 了。</p>
+<p>一下方法都是参考 Github 和恩山论坛的内容：</p>
+<ol>
+<li><p>拉取<code>lede</code>仓库指定提交记录</p>
+<p>这里需要查看官方最新稳定版的发布时间和内核版本，根据官方的更新时间和内核版本去定位到<code>lede</code>提交版本。</p>
+<p>例如，官方最新的稳定版是<code>OpenWrt 23.05.0-rc4</code>内核版本<code>5.15.134</code>发布时间是 2023-10-13 <a href="https://openwrt.org/zh/releases/23.05/notes-23.05.0">OpenWrt 23.05.0</a>。那么就去<code>lede</code>仓库中找到内核版本相差不多的那条提交记录。</p>
+<p><img src="http://img.duya233.top/duya-imageimage-20231118220928363.png" alt="image-20231118220928363"></p>
+</li>
+<li><p>使用 git 命令根据提交记录创建一个编译分支</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建并切换到 byop 分支上</span></span><br><span class="line">git checkout -b byop 21c3e8e4a1d391a6244ebc854e41d07654ea5e80</span><br></pre></td></tr></table></figure></li>
+<li><p>修改<code>lede/target/linux/x86/Makefile</code></p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这个值为你想要的内核大版本 x.xx.x 中最后一个x最好让系统来决定；这能尽量避免报错</span></span><br><span class="line">KERNEL_PATCHVER:=6.15 改成 5.15 </span><br></pre></td></tr></table></figure>
+
+<p>接下来就是正常的编译环节了，这个编译指定版本的方法并不保证一定有效，请自行尝试。</p>
+</li>
+</ol>
+<h2 id="5-参考文档"><a href="#5-参考文档" class="headerlink" title="5. 参考文档"></a>5. 参考文档</h2><ul>
+<li><a href="https://github.com/coolsnowwolf/lede">Lean 的源码仓库</a></li>
+<li><a href="https://www.right.com.cn/forum/thread-3682029-1-1.html">OpenWrt 编译 LuCI -&gt; Applications 添加插件应用说明-L 大</a></li>
+<li><a href="https://fairysen.com/819.html">从零开始自定义编译 OpenWrt(LEDE) 固件</a></li>
+<li><a href="https://wp.gxnas.com/10294.html">OpenWrt编译成功文件说明</a></li>
+<li><a href="https://www.right.com.cn/forum/thread-4043777-1-1.html"><strong>编译openwrt怎样更换内核为5.4</strong> </a></li>
+<li><a href="https://github.com/coolsnowwolf/lede/discussions/9993">Github issues · 编译OpenWRT如何更换内核小版本</a></li>
+<li><a href="https://www.right.com.cn/forum/thread-469400-1-1.html">openwrt编译笔记，有些技巧是自己试验出来的，很多人死也不肯说</a></li>
+</ul>
+<h2 id="6-碎碎念"><a href="#6-碎碎念" class="headerlink" title="6. 碎碎念"></a>6. 碎碎念</h2><ul>
+<li>这里需要特别提醒，就现在这个时间点来说不要想着去嫖 Github 的 Actions 来编译了。GitHub 提供的机器存储完全不够用来编译加了很多软件源的 OpenWrt。</li>
+</ul>
+<p><a href="https://docs.github.com/zh/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources">支持的运行器和硬件资源</a></p>
+<p><img src="http://img.duya233.top/duya-imageduya233_a4e94b66f06cc.png" alt="a4e94b66f06cc.png"></p>
+<meta name="referrer" content="no-referrer" />
+
+
+
+<span id="more"></span>
+
+]]></content>
+  </entry>
+  <entry>
     <title>【杂谈】浅谈社会公信力的丧失</title>
     <url>/2023/36412/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
