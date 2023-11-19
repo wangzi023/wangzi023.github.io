@@ -2297,6 +2297,295 @@
 ]]></content>
   </entry>
   <entry>
+    <title>前端应该了解的Nginx使用技巧</title>
+    <url>/2023/15367/</url>
+    <content><![CDATA[<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><blockquote>
+<p>nginx 是一个高性能的 HTTP 和反向代理服务器，也是一个通用的 TCP/UDP 代理服务器，最初由俄罗斯人 Igor Sysoev 编写。</p>
+</blockquote>
+<p>本文整理了 Nginx 常见命令与配置，以便后面需要配置 Nginx 的时候可以快速的找到配置文档。个人以前端的视角来看 Nginx 主要是会配，能够理解这里面哪个配置文件是干什么的配置后有哪些效果。</p>
+<h2 id="1-基础命令"><a href="#1-基础命令" class="headerlink" title="1. 基础命令"></a>1. 基础命令</h2><ul>
+<li><strong>列出 nginx 相关软件包</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum list | grep nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>yum list: 列出所有软件清单</p>
+</li>
+<li><p>yum list installed: 列出已安装软件清单————检测系统中是否安装某个软件</p>
+</li>
+<li><p>grep: 用于查找文件中符合条件的字符串</p>
+</li>
+<li><p><strong>安装 nginx</strong></p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">yum install nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看 nginx 版本信息</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nginx -v</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>列出 nginx 相关目录</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rpm -ql nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>全格式显示所有 nginx 运行进程</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ps -ef | grep nginx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>ps: 列出系统中当前运行的进程</p>
+</li>
+<li><p>-ef: -e 显示所有，-f 全格式显示，也可以使用 aux；</p>
+</li>
+<li><p><strong>开机自启</strong></p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 设置开机自启</span></span><br><span class="line">systemctl <span class="built_in">enable</span> nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># g关闭开机自启</span></span><br><span class="line">syetemctl diaable nginx</span><br></pre></td></tr></table></figure>
+
+<p>可用 reboot 重启服务器，配合 ps -ef | grep nginx 进行测试</p>
+<ul>
+<li><strong>启动&amp;停止&amp;重启&amp;重载</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 启动 nginx</span></span><br><span class="line">systemctl start nginx ｜ nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 nginx</span></span><br><span class="line">systemctl stop nginx | nginx -s stop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 nginx</span></span><br><span class="line">systemctl restart nginx | nginx -s reopen</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重载 nginx，更改 nginx 配置后需执行</span></span><br><span class="line">systemctl reload nginx | nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>杀死单个进程</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 PID(进程<span class="built_in">id</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>查看 nginx 最终配置</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nginx -T</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>它会打印出 Nginx 的所有配置指令，包括主配置文件和引入的其他配置文件的内容。这对于调试和查看实际应用的配置非常有用。</p>
+</li>
+<li><p><strong>检查配置项是否有问题，每次更改完先检查后重载</strong></p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 当前目录下</span></span><br><span class="line">nginx -t</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不在当前目录</span></span><br><span class="line">nginx -t -c &lt;配置路径&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2. 配置文件"></a>2. 配置文件</h2><ul>
+<li>nginx.conf 文件默认配置</li>
+</ul>
+<p><img src="https://img.duya233.top/duya-imageguest_9c03da2bb9b3c_IP223.122.0.245_UPTIME1697103769.png" alt="UPTIME1697103769"></p>
+<p><img src="https://img.duya233.top/duya-imageguest_3f0c8bd8356d7_IP182.239.93.37_UPTIME1697096768.jpg" alt="UPTIME1697096768.jpg"></p>
+<ul>
+<li><code>main</code>:nginx 的全局配置，对全局生效。</li>
+<li><code>events</code>:配置影响 nginx 服务器或与用户的网络连接。</li>
+<li><code>http</code>：可以嵌套多个 server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。</li>
+<li><code>server</code>：配置虚拟主机的相关参数，一个 http 中可以有多个 server。</li>
+<li><code>location</code>：配置请求的路由，以及各种页面的处理情况。</li>
+<li><code>upstream</code>：配置后端服务器具体地址，负载均衡配置不可或缺的部分。</li>
+</ul>
+<p>上文日志格式中所涉及变量含义如下：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$remote_addr</td>
+<td>客户端地址</td>
+</tr>
+<tr>
+<td>$remote_user</td>
+<td>已经过验证的用户名</td>
+</tr>
+<tr>
+<td>$time_local</td>
+<td>通用日志格式的本地时间</td>
+</tr>
+<tr>
+<td>$request</td>
+<td>完整的原始的请求行</td>
+</tr>
+<tr>
+<td>$status</td>
+<td>下发给客户端的响应码</td>
+</tr>
+<tr>
+<td>$body_bytes_sent</td>
+<td>下发给客户端的字节数</td>
+</tr>
+<tr>
+<td>$http_referer</td>
+<td>当前请求上一次页面访问的地址</td>
+</tr>
+<tr>
+<td>$http_user_agent</td>
+<td>客户端 agent 信息</td>
+</tr>
+<tr>
+<td>$http_x_forwarded_for</td>
+<td>获得用户 ip</td>
+</tr>
+</tbody></table>
+<h1 id="3-静态资源配置"><a href="#3-静态资源配置" class="headerlink" title="3. 静态资源配置"></a>3. 静态资源配置</h1><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen 80<span class="comment">;</span></span><br><span class="line">  server_name static.xxx.com<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">  location /static &#123;</span><br><span class="line">    root /home<span class="comment">;</span></span><br><span class="line">    <span class="comment"># alias /home/static;</span></span><br><span class="line"></span><br><span class="line">    autoindex on<span class="comment">;             # 开启静态资源目录</span></span><br><span class="line">    autoindex_exact_size off<span class="comment">; # 文件单位 -- on：字节      off：KB、MB、GB</span></span><br><span class="line">    autoindex_localtime off<span class="comment">;  # 时间格式 -- on：服务器时间 off：GMT时间</span></span><br><span class="line">    autoindex_format html<span class="comment">;    # 目录格式</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>root 与 alias 区别</strong></p>
+</li>
+<li><p>图中静态资源所在目录为：/home/static；root 查找静态资源的路径为其填写路径拼接 location 路径，alias 则直接寻找其填写路径；</p>
+</li>
+<li><p>alias 只能用于 location 中；</p>
+</li>
+<li><p><strong>autoindex</strong></p>
+</li>
+</ul>
+<p>开启 autoindex 可访问文件根目录</p>
+<h2 id="4-反向代理"><a href="#4-反向代理" class="headerlink" title="4. 反向代理"></a>4. 反向代理</h2><p>我们在服务器上跑一个 node 项目，配置用 域名 来代替 ip + 端口 访问</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen       80<span class="comment">;</span></span><br><span class="line">  server_name  nginx.xxx.com<span class="comment">;</span></span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://127.0.0.1:3002<span class="comment">;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其含义为用户访问 <code>nginx.xxx.com</code>​ 的时候，将其反向代理到<code>127.0.0.1:3002</code>​ 上</p>
+<ul>
+<li><strong>解决跨域</strong></li>
+</ul>
+<blockquote>
+<p>tips：实际工作中，解决跨域一般为后端配置 CORS，HTTP 请求方法 里 Options 部分</p>
+</blockquote>
+<ul>
+<li><strong>hosts 配置</strong></li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">127.0.0.1       nginx.xxx.com</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>nginx 配置</strong></li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen       80<span class="comment">;</span></span><br><span class="line">  server_name  nginx.xxx.com<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://127.0.0.1:8080<span class="comment">;</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">   location /api &#123;</span><br><span class="line">      proxy_pass http://127.0.0.1:3002<span class="comment">;</span></span><br><span class="line">      proxy_set_header Host $host<span class="comment">;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其含义为用户访问 <code>nginx.xxx.com</code>​ 的时候，将其反向代理到 <code>127.0.0.1:8080​</code> 上（前端部分）；访问 <code>nginx.xxx.com/api</code>​ 的时候，将其反向代理到 <code>127.0.0.1:3002/api</code>​ 上（后端部分）；此时前后端同域，以此解决跨域问题。</p>
+<p><code>proxy_set_header Host $host</code>: 用来在后端获取用户发送过来得的请求头，如下图：第一行输出为没有配置该指令，第二行为配置了该指令。</p>
+<p><img src="https://img.duya233.top/duya-imageguest_48829bf1ecde0_IP223.122.0.245_UPTIME1697100611.png" alt="1697100611.png"></p>
+<h2 id="5-HTTPS"><a href="#5-HTTPS" class="headerlink" title="5. HTTPS"></a>5. HTTPS</h2><ul>
+<li>配置 https</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen 443 ssl<span class="comment">;                                      # 采用443端口，开启ssl</span></span><br><span class="line">  listen <span class="section">[::]</span>:443 ssl<span class="comment">;</span></span><br><span class="line">  server_name sso.deeruby.com<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># 证书配置</span></span><br><span class="line">  ssl_certificate /etc/nginx/ssl/sso/full_chain.pem<span class="comment">;   # pem 文件路径</span></span><br><span class="line">  ssl_certificate_key /etc/nginx/ssl/sso/private.key<span class="comment">;  # key 文件路径</span></span><br><span class="line"></span><br><span class="line">  ssl_session_cache shared:SSL:1m<span class="comment">;                     # 共享缓存大小</span></span><br><span class="line">  ssl_session_timeout 5m<span class="comment">;                              # 超时时间</span></span><br><span class="line">  ssl_ciphers HIGH:!aNULL:!MD5<span class="comment">;                        # 加密算法</span></span><br><span class="line">  ssl_prefer_server_ciphers on<span class="comment">;                        # 优先采取服务器算法</span></span><br><span class="line"></span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://127.0.0.1:3002<span class="comment">;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>访问 http 自动跳转至 https</strong></li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen       80<span class="comment">;</span></span><br><span class="line">  server_name  sso.xxx.com<span class="comment">;</span></span><br><span class="line">  rewrite ^(.*) https://$server_name$1 permanent<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>rewrite</code></li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">rewrite   &lt;regex&gt;    &lt;replacement&gt;       <span class="section">[flag]</span></span><br><span class="line">            正则       跳转后的内容   rewrite支持的flag标记</span><br><span class="line"></span><br><span class="line"><span class="section">[flag]</span>：permanent -- 301 永久重定向；redirect -- 302 临时重定向；</span><br></pre></td></tr></table></figure>
+
+<p>故上文配置表示将当前路径永久重定向到 <code>https://sso.xxx.com/</code>路径上</p>
+<h2 id="6-图片防盗链"><a href="#6-图片防盗链" class="headerlink" title="6. 图片防盗链"></a>6. 图片防盗链</h2><p>引言：referer 请求头用于识别访问来源，以此来配置防盗链。</p>
+<p>valid_referers：设置可访问资源的规则，其不允许的规则 $invalid_referer 值为 1，对不允许的规则返回 403。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>none</td>
+<td>允许没有 referer 字段的请求访问资源</td>
+</tr>
+<tr>
+<td>blocked</td>
+<td>允许非 HTTP(S) 开头的请求访问资源</td>
+</tr>
+<tr>
+<td>server_names</td>
+<td>允许指定域名 / IP 访问资源</td>
+</tr>
+<tr>
+<td>[string]</td>
+<td>正则匹配定义可访问资源的网址</td>
+</tr>
+</tbody></table>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">location ~/static/.*\.(jpg|jpeg|png|gif|webp)$ &#123;</span><br><span class="line">  root /home<span class="comment">;</span></span><br><span class="line">  valid_referers *.xxx.com<span class="comment">;</span></span><br><span class="line">  if ($invalid_referer) &#123;</span><br><span class="line">    return 403<span class="comment">;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述配置表示只有<code>*.xxx.com</code>可以访问资源，否则 403 保存</p>
+<h2 id="7-访问限制"><a href="#7-访问限制" class="headerlink" title="7. 访问限制"></a>7. 访问限制</h2><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">location /static &#123;</span><br><span class="line">  root /home<span class="comment">;</span></span><br><span class="line">  allow 39.xxx.xxx.xxx<span class="comment">;  # allow 允许</span></span><br><span class="line">  deny all<span class="comment">;              # deny  拒绝</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>表示仅允许<code>39.xxx.xxx.xxx</code>访问该目录，禁止其他 IP 访问，其生效顺序为谁先触发谁起作用。</p>
+<h2 id="8-请求过滤"><a href="#8-请求过滤" class="headerlink" title="8. 请求过滤"></a>8. 请求过滤</h2><p>根据状态码过滤</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">error_page 500 501 502 503 504 506 /50x.html<span class="comment">;</span></span><br><span class="line">    <span class="attr">location</span> = /<span class="number">50</span>x.html &#123;</span><br><span class="line">        <span class="comment">#将跟路径改编为存放html的路径。</span></span><br><span class="line">        root /root/static/html<span class="comment">;</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据 URL 名称过滤，精准匹配 URL，不匹配的 URL 全部重定向到主页。</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    rewrite  ^.*$ /index.html  redirect<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>仅允许使用 GET、POST、HEAD、OPTIONS 这四种请求，使用其余请求返回 403</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">if ($request_method !~ ^(GET|POST|HEAD|OPTIONS)$) &#123;</span><br><span class="line">  return 403<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-缓存"><a href="#9-缓存" class="headerlink" title="9. 缓存"></a>9. 缓存</h2><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">expires 7d<span class="comment">;  # 缓存7天</span></span><br><span class="line">expires -1<span class="comment">;  # 不缓存</span></span><br></pre></td></tr></table></figure>
+
+<p>将动态文件与静态文件分别配置，对静态文件设置缓存即为动静分离</p>
+<h2 id="10-PC-端和移动端使用不同项目"><a href="#10-PC-端和移动端使用不同项目" class="headerlink" title="10. PC 端和移动端使用不同项目"></a>10. PC 端和移动端使用不同项目</h2><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  root /home/static/pc<span class="comment">;</span></span><br><span class="line">  if ($http_user_agent ~* &#x27;(mobile|android|iphone|ipod|phone)&#x27;) &#123;</span><br><span class="line">    root /home/static/mobile<span class="comment">;</span></span><br><span class="line">  &#125;</span><br><span class="line">  index index.html<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：条件语句中不能使用别名，若有需求，可采取折中方案，重定向移动端网址</p>
+<h2 id="11-负载均衡"><a href="#11-负载均衡" class="headerlink" title="11. 负载均衡"></a>11. 负载均衡</h2><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">upstream backserver &#123;              <span class="comment"># 存放负载均衡所需变量</span></span><br><span class="line">  ip_hash<span class="comment">;                         # 根据用户访问 IP 的 hash 分配，这样每个访客固定访问一个后端服务，可有效解决动态网页存在的 session 共享问题</span></span><br><span class="line">  <span class="comment"># fair;                          # 根据页面大小和加载时间长短智能地进行负载均衡，响应时间短的优先分配</span></span><br><span class="line">  server 127.0.0.1:9090<span class="comment">;</span></span><br><span class="line">  server 127.0.0.1:8080 <span class="attr">weight</span>=<span class="number">2</span><span class="comment">;  # 加权，权重越大，被访问概率越大</span></span><br><span class="line">  server 127.0.0.1:7070 down<span class="comment">;      # 该 server 不参与负载均衡</span></span><br><span class="line">  server 127.0.0.1:6060 backup<span class="comment">;    # 其余 server 均不可用时，使用这个</span></span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">  location / &#123;</span><br><span class="line">    proxy_pass http://backserver<span class="comment">;  # 接入负载均衡相关配置</span></span><br><span class="line">    proxy_redirect default<span class="comment">;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="12-限速限流"><a href="#12-限速限流" class="headerlink" title="12. 限速限流"></a>12. 限速限流</h2><p>limit_conn 连接频率限制：TCP 连接</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">limit_conn_zone $binary_remote_addr <span class="attr">zone</span>=conname:<span class="number">10</span>m<span class="comment">;</span></span><br><span class="line">server &#123;</span><br><span class="line">   limit_conn conname 3<span class="comment">;  # 每个 IP 只能发起3个连接</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>limit_req 请求频率限制：API 请求</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">limit_req_zone $binary_remtoe_addr <span class="attr">zone</span>=conname:<span class="number">1</span>m rate=<span class="number">10</span>r/s<span class="comment">;</span></span><br><span class="line">server &#123;</span><br><span class="line">   limit_req <span class="attr">zone</span>=conname burst=<span class="number">5</span> nodelay<span class="comment">;  # 最大请求数为5，且超过的请求不延迟</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$binary_remote_addr</td>
+<td>这里填写的是限流对象，我们采用客户端 IP</td>
+</tr>
+<tr>
+<td>zone=conname</td>
+<td>给共享空间设置名称为：conname</td>
+</tr>
+<tr>
+<td>10m</td>
+<td>空间大小：10 兆</td>
+</tr>
+<tr>
+<td>rate</td>
+<td>速率，上述表示每秒最多发起 10 个请求</td>
+</tr>
+<tr>
+<td>limit_conn</td>
+<td>限制每个 name 对应的连接数</td>
+</tr>
+<tr>
+<td>limit_req</td>
+<td>限制每个 name 对应的请求数</td>
+</tr>
+</tbody></table>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">   limit_rate_after 10m<span class="comment">;  # 前10兆大小不限速</span></span><br><span class="line">   limit_rate 100k<span class="comment">;       # 限速为 100KB/秒</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里可用 ab 命令进行压测</p>
+<p><code>ab -n[number] -c[number] -k url</code><br>| 字段 | 含义             |<br>| —- | —————- |<br>| -n   | 一共发送多少请求 |<br>| -c   | 同时发送多少请求 |<br>| -k   | keep-alive       |</p>
+<h2 id="13-其他"><a href="#13-其他" class="headerlink" title="13. 其他"></a>13. 其他</h2><p>开启 gzip</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">gzip on<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+
+<meta name="referrer" content="no-referrer" />
+
+
+
+<span id="more"></span>
+
+]]></content>
+      <tags>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>彻底搞懂HTTP缓存策略</title>
     <url>/2023/11456/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
