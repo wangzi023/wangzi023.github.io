@@ -2110,6 +2110,29 @@
       </tags>
   </entry>
   <entry>
+    <title>使用epubBuilder来编辑发布epub格式的电子书，并传到kindle上阅读</title>
+    <url>/2023/16742/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前我在语雀上写了一篇<a href="https://www.yuque.com/duya233/bmdn6f/tauk2w">“使用docker的Calibre-Web项目来搭建一个自己的电子书库”</a>没看过的朋友可以了解一下。这次我们来说说怎么编辑发布自己的epub格式的电子书，为什么要自己制作epub格式的电子书呢？我在kindle上看的更多的是一些轻小说，而现在网络上可以找到的轻小说资源都是一些汉化组的大佬翻译的txt文本格式的书籍，这并不是很方便我在kindle上阅读，于是就需要epubBuilder这个软件来将txt文本格式的书籍转换成通用电子书格式。</p>
+<p>我所使用的是epubBuilder是破解绿化版本，可能存在一些兼容性的问题需要大家自行尝试。<br><img src="https://img.duya233.top/duya-image402653498561.png" alt="402653498561"><br>（软件开启后界面)</p>
+<h3 id="开始骚操作"><a href="#开始骚操作" class="headerlink" title="开始骚操作"></a>开始骚操作</h3><h4 id="一、在网络上找到你所需要制作的电子书txt文件。"><a href="#一、在网络上找到你所需要制作的电子书txt文件。" class="headerlink" title="一、在网络上找到你所需要制作的电子书txt文件。"></a>一、在网络上找到你所需要制作的电子书txt文件。</h4><p><img src="https://img.duya233.top/duya-image56834896523.png" alt="56834896523"></p>
+<p>我随便找了一个轻小说网站下载了一个，可以看到他有小说名称、封面、以及简介和下载链接，这些都是我们等会需要用到的。最好是下载已经分好卷名的小说，这样我们在后期自作时候可以少一些步骤。<img src="https://img.duya233.top/duya-image2394823659.png" alt="2394823659"><br><img src="https://img.duya233.top/duya-image573024865.png" alt="573024865"></p>
+<h4 id="二、导入到epubBuilder软件中"><a href="#二、导入到epubBuilder软件中" class="headerlink" title="二、导入到epubBuilder软件中"></a>二、导入到epubBuilder软件中</h4><p><img src="https://img.duya233.top/duya-image50347896.png" alt="50347896"></p>
+<h4 id="三、在弹出的对话框中输入书籍名称、作者、分类、简介以及导入书籍封面。"><a href="#三、在弹出的对话框中输入书籍名称、作者、分类、简介以及导入书籍封面。" class="headerlink" title="三、在弹出的对话框中输入书籍名称、作者、分类、简介以及导入书籍封面。"></a>三、在弹出的对话框中输入书籍名称、作者、分类、简介以及导入书籍封面。</h4><p><img src="https://img.duya233.top/duya-image32985634-08.png" alt="32985634-08"><br>插图可以在网站小说目录中找到<br><img src="https://img.duya233.top/duya-image4273956324.png" alt="4273956324"></p>
+<h4 id="四、如果出现导入、拆分错误请自行解决"><a href="#四、如果出现导入、拆分错误请自行解决" class="headerlink" title="四、如果出现导入、拆分错误请自行解决"></a>四、如果出现导入、拆分错误请自行解决</h4><p><img src="https://img.duya233.top/duya-image9238401234.png" alt="9238401234"><br><img src="https://img.duya233.top/duya-image213564209.png" alt="213564209"></p>
+<h4 id="五、下载的txt文件通常是没有插图的，这需要我们自己进行一个插入"><a href="#五、下载的txt文件通常是没有插图的，这需要我们自己进行一个插入" class="headerlink" title="五、下载的txt文件通常是没有插图的，这需要我们自己进行一个插入"></a>五、下载的txt文件通常是没有插图的，这需要我们自己进行一个插入</h4><p><img src="https://img.duya233.top/duya-image4357302985.png" alt="4357302985"></p>
+<h4 id="六、确认没有问题之后点击发布——生成epub文件。"><a href="#六、确认没有问题之后点击发布——生成epub文件。" class="headerlink" title="六、确认没有问题之后点击发布——生成epub文件。"></a>六、确认没有问题之后点击发布——生成epub文件。</h4><p><img src="https://img.duya233.top/duya-image53240345y.png" alt="53240345y"></p>
+<h4 id="七、最后就生成了我们需要的epub文件了，上传到Calibre-Web没有问题就说明我们成功了。"><a href="#七、最后就生成了我们需要的epub文件了，上传到Calibre-Web没有问题就说明我们成功了。" class="headerlink" title="七、最后就生成了我们需要的epub文件了，上传到Calibre-Web没有问题就说明我们成功了。"></a>七、最后就生成了我们需要的epub文件了，上传到Calibre-Web没有问题就说明我们成功了。</h4><p><img src="https://img.duya233.top/duya-image4234699123.png" alt="4234699123"></p>
+<h3 id="结语和文件链接"><a href="#结语和文件链接" class="headerlink" title="结语和文件链接"></a>结语和文件链接</h3><p><a href="https://wwu.lanzout.com/ipAnxyeqzdc">蓝奏云</a></p>
+<span id="more"></span>
+
+]]></content>
+      <tags>
+        <tag>Calibre-Web</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>写的一些小玩意</title>
     <url>/2023/49767/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
