@@ -3023,6 +3023,46 @@
       </tags>
   </entry>
   <entry>
+    <title>网络空间寻找IPTV源</title>
+    <url>/2024/5047/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通常情况下，IPTV平台的响应头是定制的，那么我们可以利用这个特性去搜索到在公共网络中的直播源</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>常用的网络空间搜索引擎：<code>fofa</code>、<code>shodan</code>、<code>zoomeye</code>、<code>censys</code></p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">https://fofa.info/</span><br><span class="line">https://quake.360.net/</span><br><span class="line">https://hunter.qianxin.com/</span><br><span class="line">https://www.zoomeye.org/</span><br><span class="line">https://www.shodan.io/</span><br><span class="line">https://search.censys.io/</span><br></pre></td></tr></table></figure>
+
+<p>使用相关的关键词</p>
+<p>常见搜索关键字<br>组播头<br>udproxy平台</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">Server: udpxy</span><br></pre></td></tr></table></figure>
+
+<p>单播<br>华为平台</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line">Server: HMS Download Service</span><br></pre></td></tr></table></figure>
+
+<p>酒店<br>智慧光迅平台(广东公司) </p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">body</span>=<span class="string">&quot;ZHGXTV&quot;</span></span><br><span class="line">/ZHGXTV/Public/json/live_interface.txt</span><br><span class="line">http://ip:port/hls/1/index.m3u8</span><br></pre></td></tr></table></figure>
+
+<p>智慧桌面 智能KUTV(陕西公司) </p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">body</span>=<span class="string">&quot;/iptv/live/zh_cn.js&quot;</span></span><br><span class="line">http://ip:port/tsfile/live/0001_1.m3u8</span><br></pre></td></tr></table></figure>
+
+<p>华视美达 华视私云(浙江公司)</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">body</span>=<span class="string">&quot;华视美达&quot;</span></span><br><span class="line">http://ip:port/newlive/live/hls/1/live.m3u8</span><br></pre></td></tr></table></figure>
+
+<p>地面波串流</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Tvheadend平台 Server: HTS/tvheadend</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20240622113441735.png" alt="image-20240622113441735"></p>
+<p><img src="https://img.duya233.top/duya-imageimage-20240622114118725.png" alt="image-20240622114118725"></p>
+<meta name="referrer" content="no-referrer" />
+
+
+
+<span id="more"></span>
+
+]]></content>
+      <tags>
+        <tag>IPTV</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>解决Hexo使用部分图床图片不显示问题</title>
     <url>/2023/26254/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
