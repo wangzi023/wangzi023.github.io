@@ -1,0 +1,686 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>IPTV 源相关接口 | 戴某人的博客</title><meta name="robots" content="noindex"><meta name="author" content="兔子"><meta name="copyright" content="兔子"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="这是一个基于nestjs的api服务，适用于epg的api服务说明 支持采集112114 51zmt cntv 模板导入 等方式 epg 以112114的xmltv频道列表作为标准频道名，以112114alias作为别名库 支持diyp接口,本地访问时为：localhost:8082&#x2F;epg&#x2F;diyp?ch&#x3D;CCTV1 支持xmltv接口，本地访问时为:localhost:8082&#x2F;epg&#x2F;x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IPTV 源相关接口">
+<meta property="og:url" content="https://blog.duya233.top/2025/63349/index.html">
+<meta property="og:site_name" content="戴某人的博客">
+<meta property="og:description" content="这是一个基于nestjs的api服务，适用于epg的api服务说明 支持采集112114 51zmt cntv 模板导入 等方式 epg 以112114的xmltv频道列表作为标准频道名，以112114alias作为别名库 支持diyp接口,本地访问时为：localhost:8082&#x2F;epg&#x2F;diyp?ch&#x3D;CCTV1 支持xmltv接口，本地访问时为:localhost:8082&#x2F;epg&#x2F;x">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.xjh.me/random_img.php?type=bg&return=302">
+<meta property="article:published_time" content="2025-01-15T22:49:43.000Z">
+<meta property="article:modified_time" content="2025-01-15T15:26:34.827Z">
+<meta property="article:author" content="兔子">
+<meta property="article:tag" content="iptv">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.xjh.me/random_img.php?type=bg&return=302"><link rel="shortcut icon" href="https://s1.img.ink/2023/05/20/dd92c72449133.ico"><link rel="canonical" href="https://blog.duya233.top/2025/63349/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'IPTV 源相关接口',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-01-15 15:26:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/style/index.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.ziyuan.wang/2023/04/16/6f516c602deb6.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img.xjh.me/random_img.php?type=bg&amp;return=302')"><nav id="nav"><span id="blog-info"><a href="/" title="戴某人的博客"><span class="site-name">戴某人的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">IPTV 源相关接口</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-01-15T22:49:43.000Z" title="发表于 2025-01-15 22:49:43">2025-01-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-01-15T15:26:34.827Z" title="更新于 2025-01-15 15:26:34">2025-01-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="IPTV 源相关接口"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><meta name="referrer" content="no-referrer" />
+
+<h1 id="这是一个基于nestjs的api服务，适用于epg的api服务"><a href="#这是一个基于nestjs的api服务，适用于epg的api服务" class="headerlink" title="这是一个基于nestjs的api服务，适用于epg的api服务"></a>这是一个基于nestjs的api服务，适用于epg的api服务</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
+<li>支持采集112114 51zmt cntv 模板导入 等方式 epg</li>
+<li>以112114的xmltv频道列表作为标准频道名，以112114alias作为别名库</li>
+<li>支持diyp接口,本地访问时为：localhost:8082/epg/diyp?ch=CCTV1</li>
+<li>支持xmltv接口，本地访问时为:localhost:8082/epg/xmltv/e.xml</li>
+<li>xmltv支持导出频道别名id，改epg_channel_alias表对应记录is_export_xmltv字段值为1即可</li>
+<li>支持频道优选epg,多源时可指定源优先级</li>
+<li>模板导入支持类似工作日闹钟模式和标准5+2七天模式。</li>
+</ol>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="diyp-EPG接口"><a href="#diyp-EPG接口" class="headerlink" title="diyp EPG接口"></a>diyp EPG接口</h3><h4 id="请求参数"><a href="#请求参数" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/epg/diyp">http://localhost:8082/epg/diyp</a></p>
+<p>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters"><a href="#URL-parameters" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>false</td>
+<td>ch</td>
+<td>String</td>
+<td>CCTV1</td>
+<td>频道名 不传默认CCTV1</td>
+</tr>
+<tr>
+<td>false</td>
+<td>date</td>
+<td>String</td>
+<td>2024-12-11</td>
+<td>日期 格式yyyy-mm-dd 不传默认当天</td>
+</tr>
+</tbody></table>
+<h4 id="返回参数"><a href="#返回参数" class="headerlink" title="返回参数"></a>返回参数</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;channel_name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;频道名&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;date&quot;</span><span class="punctuation">:</span> <span class="string">&quot;日期 格式yyyy-mm-dd&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;epg_data&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;开始时间 格式HH:MM&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;end&quot;</span><span class="punctuation">:</span> <span class="string">&quot;结束时间 格式HH:MM&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;节目标题&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;节目描述&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="请求示例"><a href="#请求示例" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/epg/diyp?ch=CCTV1&amp;date=2024-12-11&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="xmltv-接口"><a href="#xmltv-接口" class="headerlink" title="xmltv 接口"></a>xmltv 接口</h3><h4 id="请求参数-1"><a href="#请求参数-1" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/epg/xmltv">http://localhost:8082/epg/xmltv</a></p>
+<p>Type: GET</p>
+</blockquote>
+<h4 id="返回参数-1"><a href="#返回参数-1" class="headerlink" title="返回参数"></a>返回参数</h4><ul>
+<li>返回<code>xmltv</code>标准文件</li>
+</ul>
+<h4 id="请求示例-1"><a href="#请求示例-1" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/epg/xmltv/e.xml&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="整理电信HWCTC源"><a href="#整理电信HWCTC源" class="headerlink" title="整理电信HWCTC源"></a>整理电信HWCTC源</h3><h4 id="请求参数-2"><a href="#请求参数-2" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/parse-HWCTC">http://localhost:8082/tool/parse-HWCTC</a></p>
+<p>Type: POST</p>
+</blockquote>
+<h5 id="Body-parameters"><a href="#Body-parameters" class="headerlink" title="Body parameters"></a>Body parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>file</td>
+<td>File</td>
+<td>xx.txt</td>
+<td>需要整理的文件</td>
+</tr>
+</tbody></table>
+<h5 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h5><ul>
+<li>上传的文件必须满足以 <code>iRet = Authentication.CTCSetConfig</code> 开头的格式。</li>
+<li>响应将返回经过处理后的文件，该文件包含“频道名称,播放地址”的格式。</li>
+</ul>
+<h4 id="请求示例-2"><a href="#请求示例-2" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request POST <span class="string">&#x27;http://localhost:8082/tool/parse-HWCTC&#x27;</span> \</span><br><span class="line">--form <span class="string">&#x27;file=@xx.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="整理联通HWCU源"><a href="#整理联通HWCU源" class="headerlink" title="整理联通HWCU源"></a>整理联通HWCU源</h3><h4 id="请求参数-3"><a href="#请求参数-3" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/parse-HWCU">http://localhost:8082/tool/parse-HWCU</a></p>
+<p>Type: POST</p>
+</blockquote>
+<h5 id="Body-parameters-1"><a href="#Body-parameters-1" class="headerlink" title="Body parameters"></a>Body parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>file</td>
+<td>File</td>
+<td>xx.txt</td>
+<td>需要整理的文件</td>
+</tr>
+</tbody></table>
+<h5 id="Tips-1"><a href="#Tips-1" class="headerlink" title="Tips"></a>Tips</h5><ul>
+<li>上传的文件必须满足以 <code>iRet = Authentication.CUSetConfig</code> 开头的格式。</li>
+<li>响应将返回经过处理后的文件，该文件包含“频道名称,播放地址”的格式。</li>
+</ul>
+<h4 id="请求示例-3"><a href="#请求示例-3" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request POST <span class="string">&#x27;http://localhost:8082/tool/parse-HWCU&#x27;</span> \</span><br><span class="line">--form <span class="string">&#x27;file=@xx.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="txt-转-m3u"><a href="#txt-转-m3u" class="headerlink" title="txt 转 m3u"></a>txt 转 m3u</h3><h4 id="请求参数-4"><a href="#请求参数-4" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/txt-to-m3u">http://localhost:8082/tool/txt-to-m3u</a></p>
+<p>Type: POST</p>
+</blockquote>
+<h5 id="Body-parameters-2"><a href="#Body-parameters-2" class="headerlink" title="Body parameters"></a>Body parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>file</td>
+<td>File</td>
+<td>xx.txt</td>
+<td>需要整理的文件</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-4"><a href="#请求示例-4" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request POST <span class="string">&#x27;http://localhost:8082/tool/txt-to-m3u&#x27;</span> \</span><br><span class="line">--form <span class="string">&#x27;file=@xx.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="m3u-转-txt"><a href="#m3u-转-txt" class="headerlink" title="m3u 转 txt"></a>m3u 转 txt</h3><h4 id="请求参数-5"><a href="#请求参数-5" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/m3u-to-txt">http://localhost:8082/tool/m3u-to-txt</a></p>
+<p>Type: POST</p>
+</blockquote>
+<h5 id="Body-parameters-3"><a href="#Body-parameters-3" class="headerlink" title="Body parameters"></a>Body parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>file</td>
+<td>File</td>
+<td>xx.m3u</td>
+<td>需要整理的文件</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-5"><a href="#请求示例-5" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request POST <span class="string">&#x27;http://localhost:8082/tool/m3u-to-txt&#x27;</span> \</span><br><span class="line">--form <span class="string">&#x27;file=@xx.m3u&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="合并两个txt"><a href="#合并两个txt" class="headerlink" title="合并两个txt"></a>合并两个txt</h3><h4 id="请求参数-6"><a href="#请求参数-6" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/merge-txt">http://localhost:8082/tool/merge-txt</a></p>
+<p>Type: POST</p>
+</blockquote>
+<h5 id="Body-parameters-4"><a href="#Body-parameters-4" class="headerlink" title="Body parameters"></a>Body parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>file</td>
+<td>File</td>
+<td>xx.txt</td>
+<td>需要整理的文件</td>
+</tr>
+<tr>
+<td>true</td>
+<td>file</td>
+<td>File</td>
+<td>xx.txt</td>
+<td>需要整理的文件</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-6"><a href="#请求示例-6" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request POST <span class="string">&#x27;http://localhost:8082/tool/merge-txt&#x27;</span> \</span><br><span class="line">--form <span class="string">&#x27;file=@xx.txt&#x27;</span></span><br><span class="line">--form <span class="string">&#x27;file=@xx.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="手动执行采集任务"><a href="#手动执行采集任务" class="headerlink" title="手动执行采集任务"></a>手动执行采集任务</h3><h4 id="请求参数-7"><a href="#请求参数-7" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/epg/cron">http://localhost:8082/epg/cron</a></p>
+<p>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-1"><a href="#URL-parameters-1" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>false</td>
+<td>name</td>
+<td>String</td>
+<td>112114</td>
+<td>数据源 不传可获取所有可执行项</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-7"><a href="#请求示例-7" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/epg/cron?name=112114&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取频道列表"><a href="#获取频道列表" class="headerlink" title="获取频道列表"></a>获取频道列表</h3><h4 id="请求参数-8"><a href="#请求参数-8" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/epg/channelList">http://localhost:8082/epg/channelList</a></p>
+<p>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-2"><a href="#URL-parameters-2" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>false</td>
+<td>name</td>
+<td>String</td>
+<td>CCTV1</td>
+<td>频道名 不传可获取所有列表</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-8"><a href="#请求示例-8" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/epg/channelList?name=CCTV1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取频道标准名"><a href="#获取频道标准名" class="headerlink" title="获取频道标准名"></a>获取频道标准名</h3><h4 id="请求参数-9"><a href="#请求参数-9" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/epg/std">http://localhost:8082/epg/std</a><br>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-3"><a href="#URL-parameters-3" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>name</td>
+<td>String</td>
+<td>CCTV1</td>
+<td>频道名</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-9"><a href="#请求示例-9" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/epg/std?name=CCTV1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="添加频道别名"><a href="#添加频道别名" class="headerlink" title="添加频道别名"></a>添加频道别名</h3><h4 id="请求参数-10"><a href="#请求参数-10" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/epg/add-alias">http://localhost:8082/epg/add-alias</a><br>Type: POST</p>
+</blockquote>
+<h5 id="URL-parameters-4"><a href="#URL-parameters-4" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>name</td>
+<td>String</td>
+<td>CCTV1</td>
+<td>频道名</td>
+</tr>
+<tr>
+<td>true</td>
+<td>alias</td>
+<td>String</td>
+<td>CCTV综合</td>
+<td>频道名</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-10"><a href="#请求示例-10" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl --location --request POST <span class="string">&#x27;http://localhost:8082/epg/add-alias&#x27;</span> \</span><br><span class="line">--header <span class="string">&#x27;Content-Type: application/json&#x27;</span> \</span><br><span class="line">--data-raw <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">    &quot;name&quot;: &quot;CCTV1&quot;,</span></span><br><span class="line"><span class="string">    &quot;alias&quot;: &quot;CCTV综合&quot;</span></span><br><span class="line"><span class="string">&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="广东电信-IPTV-直播源"><a href="#广东电信-IPTV-直播源" class="headerlink" title="广东电信 IPTV 直播源"></a>广东电信 IPTV 直播源</h3><h4 id="请求参数-11"><a href="#请求参数-11" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/dxchannelList">http://localhost:8082/tool/dxchannelList</a><br>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-5"><a href="#URL-parameters-5" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>p</td>
+<td>String</td>
+<td>a1010</td>
+<td>鉴权</td>
+</tr>
+<tr>
+<td>false</td>
+<td>type</td>
+<td>String</td>
+<td>m3u</td>
+<td>返回数据格式 默认 txt</td>
+</tr>
+<tr>
+<td>false</td>
+<td>igmp</td>
+<td>String</td>
+<td>rtp://</td>
+<td>获取组播地址，igmp+组播地址</td>
+</tr>
+<tr>
+<td>false</td>
+<td>isnew</td>
+<td>String</td>
+<td>1</td>
+<td>手动更新源</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-11"><a href="#请求示例-11" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/tool/dxchannelList?p=a1010&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="广东联通-IPTV-直播源"><a href="#广东联通-IPTV-直播源" class="headerlink" title="广东联通 IPTV 直播源"></a>广东联通 IPTV 直播源</h3><h4 id="请求参数-12"><a href="#请求参数-12" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/ltchannelList">http://localhost:8082/tool/ltchannelList</a><br>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-6"><a href="#URL-parameters-6" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>p</td>
+<td>String</td>
+<td>a1060</td>
+<td>鉴权</td>
+</tr>
+<tr>
+<td>false</td>
+<td>type</td>
+<td>String</td>
+<td>m3u</td>
+<td>返回数据格式 默认 txt</td>
+</tr>
+<tr>
+<td>false</td>
+<td>igmp</td>
+<td>String</td>
+<td>rtp://</td>
+<td>获取组播地址，igmp+组播地址</td>
+</tr>
+<tr>
+<td>false</td>
+<td>isnew</td>
+<td>String</td>
+<td>1</td>
+<td>手动更新源</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-12"><a href="#请求示例-12" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/tool/ltchannelList?p=a1060&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取广东联通OTT-IPTV-直播源"><a href="#获取广东联通OTT-IPTV-直播源" class="headerlink" title="获取广东联通OTT IPTV 直播源"></a>获取广东联通OTT IPTV 直播源</h3><h4 id="请求参数-13"><a href="#请求参数-13" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/ltottchannel">http://localhost:8082/tool/ltottchannel</a><br>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-7"><a href="#URL-parameters-7" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>p</td>
+<td>String</td>
+<td>a1030</td>
+<td>鉴权</td>
+</tr>
+<tr>
+<td>false</td>
+<td>type</td>
+<td>String</td>
+<td>m3u</td>
+<td>返回数据格式 默认 txt</td>
+</tr>
+<tr>
+<td>false</td>
+<td>isnew</td>
+<td>String</td>
+<td>1</td>
+<td>手动更新源</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-13"><a href="#请求示例-13" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/tool/ltottchannel?p=a1030&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取广东广电OTT-IPTV-直播源"><a href="#获取广东广电OTT-IPTV-直播源" class="headerlink" title="获取广东广电OTT IPTV 直播源"></a>获取广东广电OTT IPTV 直播源</h3><h4 id="请求参数-14"><a href="#请求参数-14" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/gdgdchannel">http://localhost:8082/tool/gdgdchannel</a><br>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-8"><a href="#URL-parameters-8" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>p</td>
+<td>String</td>
+<td>a1040</td>
+<td>鉴权</td>
+</tr>
+<tr>
+<td>false</td>
+<td>type</td>
+<td>String</td>
+<td>m3u</td>
+<td>返回数据格式 默认 txt</td>
+</tr>
+<tr>
+<td>false</td>
+<td>isnew</td>
+<td>String</td>
+<td>1</td>
+<td>手动更新源</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-14"><a href="#请求示例-14" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/tool/gdgdchannel?p=a1040&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="北京移动OTT-IPTV-直播源"><a href="#北京移动OTT-IPTV-直播源" class="headerlink" title="北京移动OTT IPTV 直播源"></a>北京移动OTT IPTV 直播源</h3><h4 id="请求参数-15"><a href="#请求参数-15" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/bjydchannel">http://localhost:8082/tool/bjydchannel</a><br>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-9"><a href="#URL-parameters-9" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>p</td>
+<td>String</td>
+<td>a1050</td>
+<td>鉴权</td>
+</tr>
+<tr>
+<td>false</td>
+<td>type</td>
+<td>String</td>
+<td>m3u</td>
+<td>返回数据格式 默认 txt</td>
+</tr>
+<tr>
+<td>false</td>
+<td>isnew</td>
+<td>String</td>
+<td>1</td>
+<td>手动更新源</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-15"><a href="#请求示例-15" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/tool/bjydchannel?p=a1050&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="获取江西移动CDN-PLTV-直播源"><a href="#获取江西移动CDN-PLTV-直播源" class="headerlink" title="获取江西移动CDN PLTV 直播源"></a>获取江西移动CDN PLTV 直播源</h3><h4 id="请求参数-16"><a href="#请求参数-16" class="headerlink" title="请求参数"></a>请求参数</h4><blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8082/tool/jxydchannel">http://localhost:8082/tool/jxydchannel</a><br>Type: GET</p>
+</blockquote>
+<h5 id="URL-parameters-10"><a href="#URL-parameters-10" class="headerlink" title="URL parameters"></a>URL parameters</h5><table>
+<thead>
+<tr>
+<th>Required</th>
+<th>Parameter</th>
+<th>Type</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>true</td>
+<td>p</td>
+<td>String</td>
+<td>a1060</td>
+<td>鉴权</td>
+</tr>
+<tr>
+<td>false</td>
+<td>type</td>
+<td>String</td>
+<td>m3u</td>
+<td>返回数据格式 默认 txt</td>
+</tr>
+</tbody></table>
+<h4 id="请求示例-16"><a href="#请求示例-16" class="headerlink" title="请求示例"></a>请求示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --location <span class="string">&#x27;http://localhost:8082/tool/jxydchannel?p=a1060&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<span id="more"></span>
+
+<!-- flag of hidden posts --></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.duya233.top">兔子</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.duya233.top/2025/63349/">https://blog.duya233.top/2025/63349/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.duya233.top" target="_blank">戴某人的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/iptv/">iptv</a></div><div class="post_share"><div class="social-share" data-image="https://img.xjh.me/random_img.php?type=bg&amp;return=302" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/32718/" title="iptv直播源"><img class="cover" src="https://img.xjh.me/random_img.php?type=bg&return=302" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-05-22</div><div class="title">iptv直播源</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.ziyuan.wang/2023/04/16/6f516c602deb6.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">兔子</div><div class="author-info__description">欢迎来到戴某人的博客！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">31</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wangzi023"><i class="fab fa-github"></i><span>关注我，带你看点好东西！</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/wangzi023" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:duya233@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到戴某人的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8Enestjs%E7%9A%84api%E6%9C%8D%E5%8A%A1%EF%BC%8C%E9%80%82%E7%94%A8%E4%BA%8Eepg%E7%9A%84api%E6%9C%8D%E5%8A%A1"><span class="toc-text">这是一个基于nestjs的api服务，适用于epg的api服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#diyp-EPG%E6%8E%A5%E5%8F%A3"><span class="toc-text">diyp EPG接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%8F%82%E6%95%B0"><span class="toc-text">返回参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xmltv-%E6%8E%A5%E5%8F%A3"><span class="toc-text">xmltv 接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-1"><span class="toc-text">请求参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%8F%82%E6%95%B0-1"><span class="toc-text">返回参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-1"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E7%90%86%E7%94%B5%E4%BF%A1HWCTC%E6%BA%90"><span class="toc-text">整理电信HWCTC源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-2"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Body-parameters"><span class="toc-text">Body parameters</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Tips"><span class="toc-text">Tips</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-2"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E7%90%86%E8%81%94%E9%80%9AHWCU%E6%BA%90"><span class="toc-text">整理联通HWCU源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-3"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Body-parameters-1"><span class="toc-text">Body parameters</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Tips-1"><span class="toc-text">Tips</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-3"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#txt-%E8%BD%AC-m3u"><span class="toc-text">txt 转 m3u</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-4"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Body-parameters-2"><span class="toc-text">Body parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-4"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#m3u-%E8%BD%AC-txt"><span class="toc-text">m3u 转 txt</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-5"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Body-parameters-3"><span class="toc-text">Body parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-5"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AAtxt"><span class="toc-text">合并两个txt</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-6"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Body-parameters-4"><span class="toc-text">Body parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-6"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E6%89%A7%E8%A1%8C%E9%87%87%E9%9B%86%E4%BB%BB%E5%8A%A1"><span class="toc-text">手动执行采集任务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-7"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-1"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-7"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%A2%91%E9%81%93%E5%88%97%E8%A1%A8"><span class="toc-text">获取频道列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-8"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-2"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-8"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%A2%91%E9%81%93%E6%A0%87%E5%87%86%E5%90%8D"><span class="toc-text">获取频道标准名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-9"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-3"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-9"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%A2%91%E9%81%93%E5%88%AB%E5%90%8D"><span class="toc-text">添加频道别名</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-10"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-4"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-10"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E4%B8%9C%E7%94%B5%E4%BF%A1-IPTV-%E7%9B%B4%E6%92%AD%E6%BA%90"><span class="toc-text">广东电信 IPTV 直播源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-11"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-5"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-11"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BF%E4%B8%9C%E8%81%94%E9%80%9A-IPTV-%E7%9B%B4%E6%92%AD%E6%BA%90"><span class="toc-text">广东联通 IPTV 直播源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-12"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-6"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-12"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%B9%BF%E4%B8%9C%E8%81%94%E9%80%9AOTT-IPTV-%E7%9B%B4%E6%92%AD%E6%BA%90"><span class="toc-text">获取广东联通OTT IPTV 直播源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-13"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-7"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-13"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%B9%BF%E4%B8%9C%E5%B9%BF%E7%94%B5OTT-IPTV-%E7%9B%B4%E6%92%AD%E6%BA%90"><span class="toc-text">获取广东广电OTT IPTV 直播源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-14"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-8"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-14"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%97%E4%BA%AC%E7%A7%BB%E5%8A%A8OTT-IPTV-%E7%9B%B4%E6%92%AD%E6%BA%90"><span class="toc-text">北京移动OTT IPTV 直播源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-15"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-9"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-15"><span class="toc-text">请求示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%B1%9F%E8%A5%BF%E7%A7%BB%E5%8A%A8CDN-PLTV-%E7%9B%B4%E6%92%AD%E6%BA%90"><span class="toc-text">获取江西移动CDN PLTV 直播源</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-16"><span class="toc-text">请求参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#URL-parameters-10"><span class="toc-text">URL parameters</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-16"><span class="toc-text">请求示例</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/24265/" title="Hexo博客的部署和使用"><img src="https://pic.ziyuan.wang/2023/04/16/100f2f2a9a57b.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="Hexo博客的部署和使用"/></a><div class="content"><a class="title" href="/2025/24265/" title="Hexo博客的部署和使用">Hexo博客的部署和使用</a><time datetime="2025-01-15T15:26:34.827Z" title="发表于 2025-01-15 15:26:34">2025-01-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/30222/" title="DNS服务器列表"><img src="https://img.xjh.me/random_img.php?type=bg&amp;return=302" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="DNS服务器列表"/></a><div class="content"><a class="title" href="/2024/30222/" title="DNS服务器列表">DNS服务器列表</a><time datetime="2024-07-20T09:54:23.000Z" title="发表于 2024-07-20 09:54:23">2024-07-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/5047/" title="网络空间寻找IPTV源"><img src="https://img.duya233.top/duya-imageacg.gy_22.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="网络空间寻找IPTV源"/></a><div class="content"><a class="title" href="/2024/5047/" title="网络空间寻找IPTV源">网络空间寻找IPTV源</a><time datetime="2024-07-06T09:49:20.000Z" title="发表于 2024-07-06 09:49:20">2024-07-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/9375/" title="Linux常用命令与操作"><img src="https://img.duya233.top/duya-image9823560.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="Linux常用命令与操作"/></a><div class="content"><a class="title" href="/2024/9375/" title="Linux常用命令与操作">Linux常用命令与操作</a><time datetime="2024-01-17T20:17:58.000Z" title="发表于 2024-01-17 20:17:58">2024-01-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/16742/" title="使用epubBuilder来编辑发布epub格式的电子书，并传到kindle上阅读"><img src="https://img.duya233.top/duya-image8.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="使用epubBuilder来编辑发布epub格式的电子书，并传到kindle上阅读"/></a><div class="content"><a class="title" href="/2023/16742/" title="使用epubBuilder来编辑发布epub格式的电子书，并传到kindle上阅读">使用epubBuilder来编辑发布epub格式的电子书，并传到kindle上阅读</a><time datetime="2023-12-09T10:52:42.000Z" title="发表于 2023-12-09 10:52:42">2023-12-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;1987 - 2025 By 兔子</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="https://icp.gov.moe/?keyword=20239192" target="_blank">萌ICP备20239192号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

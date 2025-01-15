@@ -825,7 +825,7 @@
   </entry>
   <entry>
     <title>Hexo博客的部署和使用</title>
-    <url>/2024/24265/</url>
+    <url>/2025/24265/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
 
 <h1 id="Hexo-博客的部署和使用"><a href="#Hexo-博客的部署和使用" class="headerlink" title="Hexo 博客的部署和使用"></a>Hexo 博客的部署和使用</h1><hr>
@@ -3259,6 +3259,26 @@
 ]]></content>
   </entry>
   <entry>
+    <title>生成文件夹目录树结构给markdown使用</title>
+    <url>/2023/12217/</url>
+    <content><![CDATA[<meta name="referrer" content="no-referrer" />
+
+<h2 id="treer是一款生成文件夹目录的node插件"><a href="#treer是一款生成文件夹目录的node插件" class="headerlink" title="treer是一款生成文件夹目录的node插件"></a>treer是一款生成文件夹目录的node插件</h2><h3 id="1、treer安装"><a href="#1、treer安装" class="headerlink" title="1、treer安装"></a>1、treer安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install treer -g	//-g 表示全局安装</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、treer语法使用"><a href="#2、treer语法使用" class="headerlink" title="2、treer语法使用"></a>2、treer语法使用</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">C:\Users\Administrator&gt;treer -h</span><br><span class="line">Usage: index [options]</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -V, --version          查看版本信息</span><br><span class="line">  -d, --directory [<span class="built_in">dir</span>]  指定要生成目录树结构的目录 (默认: <span class="string">&quot;C:\\Users\\Administrator&quot;</span>)</span><br><span class="line">  -i, --ignore [ig]      在目录树结构中忽略的目录</span><br><span class="line">  -e, --<span class="built_in">export</span> [epath]   将目录树结构的信息输出到文件中</span><br><span class="line">  -h, --<span class="built_in">help</span>             查看帮助信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、生成目录树结构"><a href="#3、生成目录树结构" class="headerlink" title="3、生成目录树结构"></a>3、生成目录树结构</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">D:\&gt;treer -d D:\<span class="built_in">test</span> -e D:\test.txt</span><br><span class="line">D:\<span class="built_in">test</span></span><br><span class="line">├─test2</span><br><span class="line">|   ├─test22</span><br><span class="line">|   |   └test22.txt</span><br><span class="line">|   ├─test21</span><br><span class="line">├─test1</span><br><span class="line">|   ├─test12</span><br><span class="line">|   ├─test11</span><br><span class="line">|   |   └test11.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、直接导出为markdown文件"><a href="#4、直接导出为markdown文件" class="headerlink" title="4、直接导出为markdown文件"></a>4、直接导出为markdown文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">D:\&gt;treer -d D:\<span class="built_in">test</span> -e D:\test.md</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>或者直接在markdown中使用，直接在markdown文档中输入```开启代码块；</li>
+</ul>
+<span id="more"></span>
+
+]]></content>
+  </entry>
+  <entry>
     <title>微信小程序自定义tabbar栏【中间突出样式】</title>
     <url>/2023/61095/</url>
     <content><![CDATA[<meta name="referrer" content="no-referrer" />
@@ -3290,26 +3310,6 @@
       <tags>
         <tag>微信小程序</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>生成文件夹目录树结构给markdown使用</title>
-    <url>/2023/12217/</url>
-    <content><![CDATA[<meta name="referrer" content="no-referrer" />
-
-<h2 id="treer是一款生成文件夹目录的node插件"><a href="#treer是一款生成文件夹目录的node插件" class="headerlink" title="treer是一款生成文件夹目录的node插件"></a>treer是一款生成文件夹目录的node插件</h2><h3 id="1、treer安装"><a href="#1、treer安装" class="headerlink" title="1、treer安装"></a>1、treer安装</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install treer -g	//-g 表示全局安装</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、treer语法使用"><a href="#2、treer语法使用" class="headerlink" title="2、treer语法使用"></a>2、treer语法使用</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">C:\Users\Administrator&gt;treer -h</span><br><span class="line">Usage: index [options]</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -V, --version          查看版本信息</span><br><span class="line">  -d, --directory [<span class="built_in">dir</span>]  指定要生成目录树结构的目录 (默认: <span class="string">&quot;C:\\Users\\Administrator&quot;</span>)</span><br><span class="line">  -i, --ignore [ig]      在目录树结构中忽略的目录</span><br><span class="line">  -e, --<span class="built_in">export</span> [epath]   将目录树结构的信息输出到文件中</span><br><span class="line">  -h, --<span class="built_in">help</span>             查看帮助信息</span><br></pre></td></tr></table></figure>
-
-<h3 id="3、生成目录树结构"><a href="#3、生成目录树结构" class="headerlink" title="3、生成目录树结构"></a>3、生成目录树结构</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">D:\&gt;treer -d D:\<span class="built_in">test</span> -e D:\test.txt</span><br><span class="line">D:\<span class="built_in">test</span></span><br><span class="line">├─test2</span><br><span class="line">|   ├─test22</span><br><span class="line">|   |   └test22.txt</span><br><span class="line">|   ├─test21</span><br><span class="line">├─test1</span><br><span class="line">|   ├─test12</span><br><span class="line">|   ├─test11</span><br><span class="line">|   |   └test11.txt</span><br></pre></td></tr></table></figure>
-
-<h3 id="4、直接导出为markdown文件"><a href="#4、直接导出为markdown文件" class="headerlink" title="4、直接导出为markdown文件"></a>4、直接导出为markdown文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">D:\&gt;treer -d D:\<span class="built_in">test</span> -e D:\test.md</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>或者直接在markdown中使用，直接在markdown文档中输入```开启代码块；</li>
-</ul>
-<span id="more"></span>
-
-]]></content>
   </entry>
   <entry>
     <title>用户名、密码等常用正则表达式</title>
