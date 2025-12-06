@@ -1,0 +1,266 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣 | 戴某人的博客</title><meta name="author" content="兔子"><meta name="copyright" content="兔子"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="开箱测试一款非常小巧的2.5G路由Cudy tr3000,并刷机成openWrt；主要是对SN2544XXXX以及之后的版本，也就是25年44周之后生产的设备。其主要原因是官方更换了闪存导致前期的固件均不能正常启动。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣">
+<meta property="og:url" content="https://blog.duya233.top/2025/49249/index.html">
+<meta property="og:site_name" content="戴某人的博客">
+<meta property="og:description" content="开箱测试一款非常小巧的2.5G路由Cudy tr3000,并刷机成openWrt；主要是对SN2544XXXX以及之后的版本，也就是25年44周之后生产的设备。其主要原因是官方更换了闪存导致前期的固件均不能正常启动。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.duya233.top/duya-image20251206140111.jpg">
+<meta property="article:published_time" content="2025-11-23T17:44:45.000Z">
+<meta property="article:modified_time" content="2025-12-06T06:05:02.635Z">
+<meta property="article:author" content="兔子">
+<meta property="article:tag" content="openwrt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.duya233.top/duya-image20251206140111.jpg"><link rel="shortcut icon" href="https://s1.img.ink/2023/05/20/dd92c72449133.ico"><link rel="canonical" href="https://blog.duya233.top/2025/49249/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-12-06 06:05:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/style/index.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.ziyuan.wang/2023/04/16/6f516c602deb6.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">48</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img.duya233.top/duya-image20251206140111.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="戴某人的博客"><span class="site-name">戴某人的博客</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-23T17:44:45.000Z" title="发表于 2025-11-23 17:44:45">2025-11-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-12-06T06:05:02.635Z" title="更新于 2025-12-06 06:05:02">2025-12-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><meta name="referrer" content="no-referrer" />
+
+
+
+<span id="more"></span>
+
+<h2 id="0-前言"><a href="#0-前言" class="headerlink" title="0. 前言"></a>0. 前言</h2><p>复杂的外出网络环境，总是让远程访问家中服务变得棘手。为此，我盯上了一款“出口转内销”的AX3000路由器。它凭借小巧机身和Type-C供电，成为短途旅行的理想选择。硬件配置上，它预留的USB 3.0接口不仅能实现U盘文件共享，更关键的是能直接连接5G随身WiFi（如中兴F50、华为通信壳CPE），通过USB共享网络的方式，在无有线场景下提供稳定的5G路由功能。其自带系统基于OpenWrt定制，天然具备极高的技术拓展性。目前，技术社区已成功适配了第三方OpenWrt固件，为这台设备带来了更高的自由度和更多“极客”玩法。</p>
+<h2 id="1-开箱测试"><a href="#1-开箱测试" class="headerlink" title="1. 开箱测试"></a>1. 开箱测试</h2><p>包装盒不大，里面就是路由器本体、网线、电源、和一个不用看的使用说明。我买的版本是 128M+512M，采用的处理器是一颗 MT7981B 处理器，无线规格是 AX3000 160MHZ，网口规格是2.5G/1G双网口，Type-C供电（5V/3A）。实测使用酷态科6号充电宝就可以带得动路由器本体+中兴F50。</p>
+<p><img src="https://img.duya233.top/duya-imagecudy-tr3000-01.png" alt="cudy-tr3000-01"></p>
+<p><img src="https://img.duya233.top/duya-imagecudy-tr3000-02-1.png" alt="cudy-tr3000-02-1"></p>
+<p><img src="https://img.duya233.top/duya-imageSnipaste_2025-11-22_10-10-45.png" alt="Snipaste_2025-11-22_10-10-45"></p>
+<p>开机进入路由器后台，官方系统整体是比较简洁的，首页可以看到路由器一些基本的运行状态。</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124114351377.png" alt="image-20251124114351377"></p>
+<p>进入高级设置里面，可以配置的项也是不少的基本满足正常的上网使用需求</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124114536216.png" alt="image-20251124114536216"></p>
+<p>网络设置这里官方系统已经支持了USB网络共享，直接拿一根A-to-C线就可以直接连接 F50 共享网络无需其他设置</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124114827105.png" alt="image-20251124114827105"></p>
+<p>其中VPN这一块是已经满足正常办公使用需求，无论是连接公司内网还是家中内网，主流客户端均已支持</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124115151365.png" alt="image-20251124115151365"></p>
+<p>系统版本</p>
+<h3 id="1-1-测速"><a href="#1-1-测速" class="headerlink" title="1.1. 测速"></a>1.1. 测速</h3><p>以下测速仅提供参考</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124115539493.png" alt="image-20251124115539493"></p>
+<p>▲手机 5G 网络测试的速度</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124115933232.png" alt="image-20251124115933232"></p>
+<p>▲Cudy tr3000 + 中兴F50网络测试的速度</p>
+<p>官方系统已经是可以满足日常的使用需求，不想折腾的朋友可以直接使用官方系统；有看到第一批买到这个机器的网友评论说 USB 供电不足、无法直接支持 USB 共享网络等情况，这些都是官方后续版本更新中得到了解决。对于想要折腾这个机器的朋友可以跟着我把它刷入第三方固件解锁更多玩法。</p>
+<h2 id="2-刷机"><a href="#2-刷机" class="headerlink" title="2. 刷机"></a>2. 刷机</h2><blockquote>
+<p>[!WARNING]<br><strong>刷机有风险</strong></p>
+</blockquote>
+<p>本次使用到的第三方固件均来自网络，感谢技术社区开发者的分享，如有侵权请与我联系</p>
+<p>下面是本次会用到的第三方固件与执行命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">相关固件</span></span><br><span class="line">https://www.cudy.com/cdn/shop/files/cudy_tr3000-v1-sysupgrade_20251112_release.zip # 过度固件1</span><br><span class="line">https://github.com/weekdaycare/immortalwrt-mt7981-cudy-tr3000/releases/tag/128M-20251201-1100 # 过度固件2</span><br><span class="line">https://github.com/weekdaycare/immortalwrt-mt7981-cudy-tr3000/releases/tag/uboot-128M-20251121-2017 # uboot</span><br><span class="line">https://github.com/weekdaycare/immortalwrt-mt7981-cudy-tr3000/releases/tag/128M_Ubootmod-20251201-1101 # immortalwrt（112M大分区）</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">scp 上传文件</span></span><br><span class="line">scp mt7981_cudy_tr3000-v1-bl2_25.11.21.bin root@192.168.6.1:/tmp</span><br><span class="line">scp mt7981_cudy_tr3000-v1-fip-fixed-parts-multi-layout_25.11.21.bin root@192.168.6.1:/tmp</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入到上传了文件的目录</span></span><br><span class="line">cd /tmp/upload</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">解锁 MTD 分区</span></span><br><span class="line">insmod mtd-rw i_want_a_brick=1</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">刷入 uboot</span></span><br><span class="line">mtd write /tmp/mt7981_cudy_tr3000-v1-bl2_25.11.21.bin BL2</span><br><span class="line">mtd write /tmp/mt7981_cudy_tr3000-v1-fip-fixed-parts-multi-layout_25.11.21.bin FIP</span><br></pre></td></tr></table></figure>
+
+<p>刷机步骤总结来说就是</p>
+<p>1、刷入过度固件</p>
+<p>2、刷入uboot</p>
+<p>3、uboot刷入第三方固件</p>
+<p><strong>注意：</strong>根据官方发布固件页面说明来看，官方对升级OpenWrt做了一些限制旧的方法在现可能不适用。</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124165621825.png" alt="image-20251124165621825"></p>
+<p><img src="http://img.duya233.top/duya-imageimage-20251124165644788.png" alt="image-20251124165644788"></p>
+<p>▲本文将采用官方说明刷入指定过度包</p>
+<p><img src="C:\Users\Wangz\AppData\Roaming\Typora\typora-user-images\image-20251124170007001.png" alt="image-20251124170007001"></p>
+<p><img src="C:\Users\Wangz\AppData\Roaming\Typora\typora-user-images\image-20251124170513428.png" alt="image-20251124170513428"></p>
+<p>成功进入过度固件，推荐备份一下FIP分区与BL2分区、UBI分区</p>
+<p><img src="C:\Users\Wangz\AppData\Roaming\Typora\typora-user-images\image-20251124170709367.png" alt="image-20251124170709367"></p>
+<p><img src="C:\Users\Wangz\AppData\Roaming\Typora\typora-user-images\image-20251124170938387.png" alt="image-20251124170938387"></p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124214941067.png" alt="image-20251124214941067"></p>
+<p>刷入过度固件2，不要勾选保留当前配置</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124215659454.png" alt="image-20251124215659454"></p>
+<p>使用scp上传u-boot固件到路由器的 /tmp 文件夹内，不方便使用scp也可以使用winSCP工具上传</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124215957083.png" alt="image-20251124215957083"></p>
+<p>使用ssh登录到路由器上，进入 /tmp/ 文件夹</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124220704402.png" alt="image-20251124220704402"></p>
+<p>解锁 MTD分区</p>
+<p>执行命令解锁 MTD 分区，否则无法写入分区（提示Could not open mtd device）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insmod mtd-rw i_want_a_brick=1</span><br></pre></td></tr></table></figure>
+
+<p>执行写入命令刷入 BL2 和 FIP</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mtd write /tmp/mt7981_cudy_tr3000-v1-bl2_25.11.21.bin BL2</span><br><span class="line">mtd write /tmp/mt7981_cudy_tr3000-v1-fip-fixed-parts-multi-layout_25.11.21.bin FIP</span><br></pre></td></tr></table></figure>
+
+<p>进入u-boot</p>
+<ul>
+<li>确保刷入 u-boot 成功之后，断开路由器电源，通过网线连接路由器 lan 口</li>
+<li>按住路由器侧边的  Reset 键，然后插入电源</li>
+<li>观察路由器灯光，等待白灯闪烁几次变为红灯后松开 Reset 键，这时设备进入 u-boot 恢复模式。</li>
+<li>设置电脑静态 IP 地址为 192.168.1.20</li>
+</ul>
+<img src="https://img.duya233.top/duya-imageimage-20251124221155770.png" alt="image-20251124221155770" style="zoom:40%;" />
+
+<p><img src="https://img.duya233.top/duya-imageimage-20251124221340383.png" alt="image-20251124221340383"></p>
+<p>通过浏览器访问<code>http://192.168.1.1</code>，进入到u-boot</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124221516792.png" alt="image-20251124221516792"></p>
+<p>选择112M大分区，刷入 <code>immortalwrt-mediatek-filogic-cudy_tr3000-v1-ubootmod-squashfs-sysupgrade.bin</code>固件</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124221723413.png" alt="image-20251124221723413"></p>
+<p>刷入成功等待系统的重启</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124221907931.png" alt="image-20251124221907931"></p>
+<p>进入系统后可以看到还有 63M 空间可以使用</p>
+<h2 id="3-救砖恢复官方系统"><a href="#3-救砖恢复官方系统" class="headerlink" title="3. 救砖恢复官方系统"></a>3. 救砖恢复官方系统</h2><h3 id="3-1-救砖准备"><a href="#3-1-救砖准备" class="headerlink" title="3.1. 救砖准备"></a>3.1. 救砖准备</h3><p>TR3000支持TFTP救砖，在设备无法正常启动时，将一个可用的固件文件传输到设备的内存中，然后由设备执行该文件以恢复其操作系统。需要一下程序和文件：</p>
+<ul>
+<li>TFTP程序，<a target="_blank" rel="noopener" href="https://d1jvyy13vm72kv.cloudfront.net/device/upgrade/m_upgrade_tftpd64_31379.zip">点此下载</a>。</li>
+<li>官方固件，如下图，当前是2.3.9版本，一定要注意是闪存版本（我的是128M），下载链接也是上述的在cudy的<a target="_blank" rel="noopener" href="https://www.cudy.com/zh-cn/pages/download-center/tr3000-1-0">下载页面</a>。</li>
+</ul>
+<p>将程序和固件都放到一个文件夹中，并将固件重命名为<code>recovery.bin</code>。</p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124163933868.png" alt="image-20251124163933868"></p>
+<h3 id="3-1-救砖"><a href="#3-1-救砖" class="headerlink" title="3.1. 救砖"></a>3.1. 救砖</h3><ol>
+<li>路由器断电。</li>
+<li>将电脑的其他网络关闭，使用网线将电脑和路由器的LAN口连接，并将电脑的IP地址设置为手动的<code>192.168.1.88</code>，掩码为<code>255.255.255.0</code>，网管和DNS都为<code>192.168.1.1</code>。</li>
+<li>按住路由器的reset按键，接上电源，TFTP将自动下载固件到路由器中。这时，松开按键即可，系统将在几分钟后恢复到cudy出厂系统。</li>
+</ol>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124163612911.png" alt="image-20251124163612911"></p>
+<h3 id="3-2-刷回原厂系统"><a href="#3-2-刷回原厂系统" class="headerlink" title="3.2. 刷回原厂系统"></a>3.2. 刷回原厂系统</h3><blockquote>
+<p>注意：</p>
+<p>刷回原厂系统我并没有实际操作过，可能会存在未知问题；</p>
+<p><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/forum.php?mod=redirect&goto=findpost&ptid=8455694&pid=22322067">Cudy TR3000 128M 三分区uboot 兼容新flash (出处: 恩山无线论坛)</a></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">恢复备份的 BL2、FIP 分区</span></span><br><span class="line">mtd write /tmp/BL2.bin BL2</span><br><span class="line">mtd write /tmp/FIP.bin FIP</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">通过上一步把官方的uboot刷回去了，再用救砖方法恢复官方系统</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4. 参考资料"></a>4. 参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cudy.com/zh-cn/pages/download-center/tr3000-1-0">cudy tr3000固件——Cudy</a></li>
+<li><a target="_blank" rel="noopener" href="https://xiabee.eu.org/">Cudy Tr3000第三方固件——weekdaycare</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.right.com.cn/forum/thread-8455694-1-1.html">Cudy TR3000 128M 三分区uboot 兼容新flash</a>(出处: 恩山无线论坛)</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://blog.duya233.top">兔子</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://blog.duya233.top/2025/49249/">https://blog.duya233.top/2025/49249/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://blog.duya233.top" target="_blank">戴某人的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/openwrt/">openwrt</a></div><div class="post_share"><div class="social-share" data-image="https://img.duya233.top/duya-image20251206140111.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/24265/" title="Hexo博客的部署和使用"><img class="cover" src="https://pic.ziyuan.wang/2023/04/16/100f2f2a9a57b.jpg" onerror="onerror=null;src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Hexo博客的部署和使用</div></div></a></div><div class="next-post pull-right"><a href="/2025/1196/" title="网络测速-speedtest"><img class="cover" src="https://www.loliapi.com/acg" onerror="onerror=null;src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">网络测速-speedtest</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.ziyuan.wang/2023/04/16/6f516c602deb6.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">兔子</div><div class="author-info__description">欢迎来到戴某人的博客！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">48</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/wangzi023"><i class="fab fa-github"></i><span>关注我，带你看点好东西！</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/wangzi023" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:duya233@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到戴某人的博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E5%89%8D%E8%A8%80"><span class="toc-text">0. 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%80%E7%AE%B1%E6%B5%8B%E8%AF%95"><span class="toc-text">1. 开箱测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%B5%8B%E9%80%9F"><span class="toc-text">1.1. 测速</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%B7%E6%9C%BA"><span class="toc-text">2. 刷机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%95%91%E7%A0%96%E6%81%A2%E5%A4%8D%E5%AE%98%E6%96%B9%E7%B3%BB%E7%BB%9F"><span class="toc-text">3. 救砖恢复官方系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%95%91%E7%A0%96%E5%87%86%E5%A4%87"><span class="toc-text">3.1. 救砖准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E6%95%91%E7%A0%96"><span class="toc-text">3.1. 救砖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%88%B7%E5%9B%9E%E5%8E%9F%E5%8E%82%E7%B3%BB%E7%BB%9F"><span class="toc-text">3.2. 刷回原厂系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">4. 参考资料</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/24265/" title="Hexo博客的部署和使用"><img src="https://pic.ziyuan.wang/2023/04/16/100f2f2a9a57b.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="Hexo博客的部署和使用"/></a><div class="content"><a class="title" href="/2025/24265/" title="Hexo博客的部署和使用">Hexo博客的部署和使用</a><time datetime="2025-12-06T06:05:02.633Z" title="发表于 2025-12-06 06:05:02">2025-12-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/49249/" title="解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣"><img src="https://img.duya233.top/duya-image20251206140111.jpg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣"/></a><div class="content"><a class="title" href="/2025/49249/" title="解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣">解锁便携Cudy-tr3000：OpenWrt下的5G随身WiFi终极伴侣</a><time datetime="2025-11-23T17:44:45.000Z" title="发表于 2025-11-23 17:44:45">2025-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/1196/" title="网络测速-speedtest"><img src="https://www.loliapi.com/acg" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="网络测速-speedtest"/></a><div class="content"><a class="title" href="/2025/1196/" title="网络测速-speedtest">网络测速-speedtest</a><time datetime="2025-11-08T18:02:38.000Z" title="发表于 2025-11-08 18:02:38">2025-11-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/45905/" title="江西移动源扫描"><img src="https://www.dmoe.cc/random.php" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="江西移动源扫描"/></a><div class="content"><a class="title" href="/2025/45905/" title="江西移动源扫描">江西移动源扫描</a><time datetime="2025-06-18T19:09:05.000Z" title="发表于 2025-06-18 19:09:05">2025-06-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/6976/" title="5G主要频段的对比分析，涵盖频率范围、适用地区、运营商分配及典型应用场景"><img src="https://api.btstu.cn/sjbz/?lx=dongman" onerror="this.onerror=null;this.src='https://pic.ziyuan.wang/2023/05/20/c88582aa9c970.jpg'" alt="5G主要频段的对比分析，涵盖频率范围、适用地区、运营商分配及典型应用场景"/></a><div class="content"><a class="title" href="/2025/6976/" title="5G主要频段的对比分析，涵盖频率范围、适用地区、运营商分配及典型应用场景">5G主要频段的对比分析，涵盖频率范围、适用地区、运营商分配及典型应用场景</a><time datetime="2025-06-18T18:50:30.000Z" title="发表于 2025-06-18 18:50:30">2025-06-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;1987 - 2025 By 兔子</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="https://icp.gov.moe/?keyword=20239192" target="_blank">萌ICP备20239192号</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
