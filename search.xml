@@ -3768,7 +3768,7 @@
 <p>▲Cudy tr3000 + 中兴F50网络测试的速度</p>
 <p>官方系统已经是可以满足日常的使用需求，不想折腾的朋友可以直接使用官方系统；有看到第一批买到这个机器的网友评论说 USB 供电不足、无法直接支持 USB 共享网络等情况，这些都是官方后续版本更新中得到了解决。对于想要折腾这个机器的朋友可以跟着我把它刷入第三方固件解锁更多玩法。</p>
 <h2 id="2-刷机"><a href="#2-刷机" class="headerlink" title="2. 刷机"></a>2. 刷机</h2><blockquote>
-<p>[!WARNING]<br><strong>刷机有风险</strong></p>
+<p><strong>注意：</strong><br><strong>刷机有风险</strong></p>
 </blockquote>
 <p>本次使用到的第三方固件均来自网络，感谢技术社区开发者的分享，如有侵权请与我联系</p>
 <p>下面是本次会用到的第三方固件与执行命令</p>
@@ -3780,13 +3780,13 @@
 <p>3、uboot刷入第三方固件</p>
 <p><strong>注意：</strong>根据官方发布固件页面说明来看，官方对升级OpenWrt做了一些限制旧的方法在现可能不适用。</p>
 <p><img src="https://img.duya233.top/duya-imageimage-20251124165621825.png" alt="image-20251124165621825"></p>
-<p><img src="http://img.duya233.top/duya-imageimage-20251124165644788.png" alt="image-20251124165644788"></p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124165644788.png" alt="image-20251124165644788"></p>
 <p>▲本文将采用官方说明刷入指定过度包</p>
-<p><img src="C:\Users\Wangz\AppData\Roaming\Typora\typora-user-images\image-20251124170007001.png" alt="image-20251124170007001"></p>
-<p><img src="C:\Users\Wangz\AppData\Roaming\Typora\typora-user-images\image-20251124170513428.png" alt="image-20251124170513428"></p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124170007001.png" alt="image-20251124170007001"></p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124170513428.png" alt="image-20251124170513428"></p>
 <p>成功进入过度固件，推荐备份一下FIP分区与BL2分区、UBI分区</p>
-<p><img src="C:\Users\Wangz\AppData\Roaming\Typora\typora-user-images\image-20251124170709367.png" alt="image-20251124170709367"></p>
-<p><img src="C:\Users\Wangz\AppData\Roaming\Typora\typora-user-images\image-20251124170938387.png" alt="image-20251124170938387"></p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124170709367.png" alt="image-20251124170709367"></p>
+<p><img src="https://img.duya233.top/duya-imageimage-20251124170938387.png" alt="image-20251124170938387"></p>
 <p><img src="https://img.duya233.top/duya-imageimage-20251124214941067.png" alt="image-20251124214941067"></p>
 <p>刷入过度固件2，不要勾选保留当前配置</p>
 <p><img src="https://img.duya233.top/duya-imageimage-20251124215659454.png" alt="image-20251124215659454"></p>
@@ -3832,7 +3832,7 @@
 </ol>
 <p><img src="https://img.duya233.top/duya-imageimage-20251124163612911.png" alt="image-20251124163612911"></p>
 <h3 id="3-2-刷回原厂系统"><a href="#3-2-刷回原厂系统" class="headerlink" title="3.2. 刷回原厂系统"></a>3.2. 刷回原厂系统</h3><blockquote>
-<p>注意：</p>
+<p><strong>注意：</strong></p>
 <p>刷回原厂系统我并没有实际操作过，可能会存在未知问题；</p>
 <p><a href="https://www.right.com.cn/forum/forum.php?mod=redirect&goto=findpost&ptid=8455694&pid=22322067">Cudy TR3000 128M 三分区uboot 兼容新flash (出处: 恩山无线论坛)</a></p>
 </blockquote>
